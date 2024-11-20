@@ -4,9 +4,18 @@ import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import Swal from "sweetalert2";
 import { useAdmin } from "../../../context/AdminContext";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { Form } from "react-bootstrap";
+// import {Button }from "@mui/material";
+// import Modal from "react-bootstrap/Modal";
+// import { Form } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  Box,
+  TextField,
+  Typography,
+  IconButton,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const AllAdmins = () => {
   const { admin } = useAdmin();
@@ -89,22 +98,27 @@ const AllAdmins = () => {
       selector: (row) => (
         <>
           <div className="d-flex gap-2">
-            <button
-              className="btn btn-sm btn-outline-danger "
+            <Button
+              // className="btn btn-sm btn-outline-danger "
+              
+              variant="contained"
+              color="warning"
               onClick={() => deactive(row._id, row.isActive)}
             >
               {row.isActive ? (
-                <span className="text-danger">Inactivate</span>
+                <span color="red" >Inactivate</span>
               ) : (
-                <span className="text-success">Activate</span>
+                <span color="green" >Activate</span>
               )}
-            </button>
-            <button
-              className="btn btn-sm btn-danger"
+            </Button>
+            <Button
+              // className="btn btn-sm btn-danger"
+              variant="contained"
+              color="error"
               onClick={() => deleteAdmin(row._id)}
             >
               Delete
-            </button>
+            </Button>
           </div>
         </>
       ),
@@ -223,7 +237,7 @@ const AllAdmins = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Prepare form data for submission
     const submissionData = new FormData();
     submissionData.append("email", formData.email);
@@ -266,90 +280,130 @@ const AllAdmins = () => {
   return (
     <div>
       <>
-        <div className="d-flex justify-content-end">
-          <Button variant="primary" className="ms-auto" onClick={handleShow}>
+        <div className="d-flex justify-content-end m-2">
+          <Button variant="contained" className="ms-auto" onClick={handleShow}>
             Register New Admin
           </Button>
         </div>
-        <Modal show={show} onHide={handleClose} size="lg">
-          <Modal.Header closeButton>
-            <Modal.Title>Admin Registration </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
+        <Modal
+          open={show}
+          onClose={handleClose}
+          aria-labelledby="admin-registration-title"
+          aria-describedby="admin-registration-description"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+              width: 500,
+              borderRadius: 2,
+            }}
+          >
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography id="admin-registration-title" variant="h6">
+                Admin Registration
+              </Typography>
+              <IconButton onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
+            </Box>
+            <form onSubmit={handleSubmit}>
+              <Box mb={2}>
+                <TextField
+                  fullWidth
+                  size="small"
+                  label="Email"
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   required
                 />
-              </Form.Group>
-
-              <Form.Group controlId="formName">
-                <Form.Label>Name</Form.Label>
-                <Form.Control
+              </Box>
+              <Box mb={2}>
+                <TextField
+                  fullWidth
+                  size="small"
+                  label="Name"
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
                 />
-              </Form.Group>
-
-              <Form.Group controlId="formProfilePic">
-                <Form.Label>Profile Pic</Form.Label>
-                <Form.Control
+              </Box>
+              <Box mb={2}>
+                <TextField
+                  fullWidth
+                  size="small"
                   type="file"
                   name="profilePic"
+                  inputProps={{ accept: "image/*" }}
                   onChange={handleChange}
                 />
-              </Form.Group>
-
-              <div className="selectedFile">
+              </Box>
+              <Box mb={2}>
                 {formData.profilePic && (
                   <img
                     src={URL.createObjectURL(formData.profilePic)}
                     alt={formData.profilePic.name}
                     className="rounded"
-               
                     width="100"
                     height="100"
                   />
                 )}
-              </div>
-
-              <Form.Group controlId="formPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
+              </Box>
+              <Box mb={2}>
+                <TextField
+                  fullWidth
+                  size="small"
+                  label="Password"
                   type="password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   required
                 />
-              </Form.Group>
-
-              <Button variant="primary" type="submit" className="mt-2">
+              </Box>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                fullWidth
+                sx={{ mt: 2 }}
+              >
                 Submit
               </Button>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="danger" onClick={handleClose}>
+            </form>
+            <Button
+              variant="outlined"
+              color="error"
+              fullWidth
+              sx={{ mt: 2 }}
+              onClick={handleClose}
+            >
               Close
             </Button>
-          </Modal.Footer>
+          </Box>
         </Modal>
       </>
-      <DataTable
-        title="Admins of Shivam Medical "
-        columns={columns}
-        data={admins}
-        pagination
-      />
+      <div className="p-4 rounded-4 shadow-sm border">
+        <DataTable
+          title="Admins of Shivam Medical "
+          columns={columns}
+          data={admins}
+          pagination
+        />
+      </div>
     </div>
   );
 };

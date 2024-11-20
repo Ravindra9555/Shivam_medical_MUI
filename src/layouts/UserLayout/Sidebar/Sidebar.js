@@ -30,7 +30,7 @@ const Sidebar = (props) => {
   };
 
   const SidebarContent = (
-    <Box sx={{ p: 3, height: "calc(100vh - 40px)" }}>
+    <Box sx={{ p: 3, height: "calc(100vh - 40px)" }} >
       <Link to="/">
         <Box sx={{ display: "flex", alignItems: "Center" }}>
           <LogoIcon />

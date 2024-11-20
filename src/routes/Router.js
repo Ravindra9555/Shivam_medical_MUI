@@ -18,7 +18,6 @@ const Home = lazy(() => import("../components/landing/Home"));
 const Login = lazy(() => import("../components/userauth/Login"));
 const Signup = lazy(() => import("../components/userauth/Signup"));
 const ForgetPassword = lazy(() =>import("../components/userauth/ForgetPassword"));
-const UserShade = lazy(()=> import("../components/shade/UserShade"));
 const UserAppointments = lazy(()=> import("../components/pages/user/Appointments"))
 const BookAppointment = lazy(() => import("../components/pages/user/BookAppointment"));
 const  Userdashboard = lazy(()=>import("../components/pages/user/UserDashbaord"));
@@ -29,7 +28,6 @@ const AllAdmin = lazy(() => import("../components/pages/Admin/AllAdmins"));
 const Appointments = lazy(() => import("../components/pages/Admin/Appointment"));
 const Doctor = lazy(() => import("../components/pages/Admin/Doctor"));
 const ResetPassword = lazy(() => import("../components/userauth/ResetPassword"));
-const Shade = lazy(() => import("../components/shade/AdminShande"));
 const ContactUs = lazy(() => import("../components/pages/Admin/ContactUs"));
 const Customers = lazy(() => import("../components/pages/Admin/Customers"));
 const Orders = lazy(() => import("../components/pages/Admin/Orders"));

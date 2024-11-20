@@ -1,13 +1,16 @@
+
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
+import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Box, Avatar, Chip } from "@mui/material";
+
 const Customers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
- const navigate = useNavigate();
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -31,18 +34,14 @@ const Customers = () => {
   };
 
   const handleToggleActive = async (userId, isActive) => {
-    let url;
-    if (!isActive) {
-      url = `${process.env.REACT_APP_BASEURL}/v1/api/users/useractive`;
-    } else {
-      url = `${process.env.REACT_APP_BASEURL}/v1/api/users/userinactive`;
-    }
+    let url = isActive
+      ? `${process.env.REACT_APP_BASEURL}/v1/api/users/userinactive`
+      : `${process.env.REACT_APP_BASEURL}/v1/api/users/useractive`;
+
     try {
       const response = await axios.post(
         url,
-        {
-          id: userId,
-        },
+        { id: userId },
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`,
@@ -55,12 +54,12 @@ const Customers = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      fetchUsers(); // Re-fetch the users after update
+      fetchUsers(); // Refresh users
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: error.response.data.message,
+        text: error.response?.data?.message || "Something went wrong",
       });
     }
   };
@@ -79,9 +78,7 @@ const Customers = () => {
         try {
           const response = await axios.post(
             `${process.env.REACT_APP_BASEURL}/v1/api/users/deleteUser`,
-            {
-              id: userId,
-            },
+            { id: userId },
             {
               headers: {
                 Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`,
@@ -89,12 +86,12 @@ const Customers = () => {
             }
           );
           Swal.fire("Deleted!", response.data.message, "success");
-          fetchUsers(); // Re-fetch the users after deletion
+          fetchUsers(); // Refresh users
         } catch (error) {
           Swal.fire({
             icon: "error",
             title: "Error",
-            text: error.response.data.message,
+            text: error.response?.data?.message || "Something went wrong",
           });
         }
       }
@@ -103,76 +100,98 @@ const Customers = () => {
 
   const columns = [
     {
-      name: "Profile",
-      selector: (row) =>(<>
-        <img src={row.profilePic ||"https://via.placeholder.com/100"} alt="" height={50} width={50} className="rounded-circle m-1" />
-      </>),
-    width:"100px"
+      field: "profilePic",
+      headerName: "Profile",
+      renderCell: (params) => (
+        <Avatar
+          alt={params.row.name}
+          src={params.value || "https://via.placeholder.com/100"}
+          sx={{ width: 50, height: 50 }}
+        />
+      ),
+      width: 100,
     },
     {
-      name: "Name",
-      selector: (row) => row.name,
-      sortable: true,
+      field: "name",
+      headerName: "Name",
+      flex: 1,
     },
     {
-      name: "Email",
-      selector: (row) => row.email,
-      sortable: true,
+      field: "email",
+      headerName: "Email",
+      flex: 1,
     },
-
     {
-      name: "Status",
-      selector: (row) =>
-        row.isActive ? (
-          <span className="badge text-bg-success">Active</span>
+      field: "isActive",
+      headerName: "Status",
+      renderCell: (params) =>
+        params.value ? (
+          <Chip label="Active" color="success" variant="outlined" />
         ) : (
-          <span className="badge text-bg-danger">Inactive</span>
+          <Chip label="Inactive" color="error" variant="outlined" />
         ),
-      sortable: true,
+      width: 150,
     },
     {
-      name: "Created At",
-      selector: (row) => new Date(row.createdAt).toLocaleDateString(),
-      sortable: true,
+      field: "createdAt",
+      headerName: "Created At",
+      valueGetter: (params) => new Date(params.value).toLocaleDateString(),
+      width: 150,
     },
     {
-      name: "Actions",
-      cell: (row) => (
+      field: "actions",
+      headerName: "Actions",
+      renderCell: (params) => (
         <>
-          <button
-            onClick={() => handleToggleActive(row._id, row.isActive)}
-            className={`btn ${
-              row.isActive ? "btn-outline-warning" : "btn-outline-success"
-            } mx-1`}
+          <Button
+            variant="outlined"
+            color={params.row.isActive ? "warning" : "success"}
+            size="small"
+            onClick={() => handleToggleActive(params.row._id, params.row.isActive)}
+            sx={{ mr: 1 }}
           >
-            {row.isActive ? "Deactivate" : "Activate"}
-          </button>
-          <button
-            onClick={() => handleDeleteUser(row._id)}
-            className="btn btn-outline-danger mx-1"
+            {params.row.isActive ? "Deactivate" : "Activate"}
+          </Button>
+          <Button
+            variant="outlined"
+            color="error"
+            size="small"
+            onClick={() => handleDeleteUser(params.row._id)}
           >
             Delete
-          </button>
+          </Button>
         </>
       ),
+      width: 300,
+      sortable: false,
     },
   ];
 
   return (
-    <div>
-      <div className="d-flex justify-content-between bg-white p-2 rouned shadow">
-
-      <h5>User Management</h5>
-      <Button type="button"  variant="contained" onClick={()=> navigate("/userregister")}>User Registration</Button>
-      </div>
-      <DataTable
+    <Box p={3} boxShadow={3} borderRadius={2} bgcolor={"white"}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={2}
+        sx={{ background: "#fff", p: 2, borderRadius: 1, boxShadow: 1 }}
+      >
+        <h5>User Management</h5>
+        <Button variant="contained" onClick={() => navigate("/admin/userregister")}>
+          User Registration
+        </Button>
+      </Box>
+      <DataGrid
+        rows={users}
         columns={columns}
-        data={users}
-        progressPending={loading}
+        loading={loading}
+        getRowId={(row) => row._id}
+        autoHeight
         pagination
-        highlightOnHover
+        pageSizeOptions={[5, 10, 20]}
+        sx={{ background: "#fff" }}
       />
-    </div>
+    </Box>
   );
 };
 

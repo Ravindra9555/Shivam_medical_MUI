@@ -1,13 +1,13 @@
 import React from "react";
 //import { Link } from 'react-router-dom';
 
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import AddToPhotosOutlinedIcon from '@mui/icons-material/AddToPhotosOutlined';
-import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import AddToPhotosOutlinedIcon from "@mui/icons-material/AddToPhotosOutlined";
+import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import { useUser } from "../../../context/UserContext";
 import {
   AppBar,
   Box,
@@ -22,6 +22,7 @@ import {
 } from "@mui/material";
 
 import userimg from "../../../assets/images/users/user.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Header = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -55,9 +56,14 @@ const Header = (props) => {
   const handleClose5 = () => {
     setAnchorEl5(null);
   };
-
+  const { user } = useUser();
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
   return (
-    <AppBar sx={props.sx} elevation={0} className={props.customClass}>
+    <AppBar sx={props.sx} elevation={1} className={props.customClass}>
       <Toolbar>
         <IconButton
           color="inherit"
@@ -72,7 +78,7 @@ const Header = (props) => {
         >
           <MenuOutlinedIcon width="20" height="20" />
         </IconButton>
-        <IconButton
+        {/* <IconButton
           aria-label="menu"
           color="inherit"
           aria-controls="dd-menu"
@@ -143,7 +149,7 @@ const Header = (props) => {
               New Component
             </Box>
           </MenuItem>
-        </Menu>
+        </Menu> */}
         <Box flexGrow={1} />
 
         {/* ------------------------------------------- */}
@@ -206,7 +212,7 @@ const Header = (props) => {
             }}
           >
             <Avatar
-              src={userimg}
+              src={user.profilePic || "https:// via.placehold.com/100"}
               alt={userimg}
               sx={{
                 width: "30px",
@@ -259,7 +265,7 @@ const Header = (props) => {
             </ListItemIcon>
             Settings
           </MenuItem>
-          <MenuItem onClick={handleClose4}>
+          <MenuItem onClick={logout}>
             <ListItemIcon>
               <LogoutOutlinedIcon fontSize="small" />
             </ListItemIcon>

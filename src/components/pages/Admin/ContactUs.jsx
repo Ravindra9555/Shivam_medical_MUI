@@ -1,25 +1,23 @@
+
 import axios from "axios";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
-import DataTable from "react-data-table-component";
 import Swal from "sweetalert2";
 import { useAdmin } from "../../../context/AdminContext";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { Form } from "react-bootstrap";
+import { DataGrid } from "@mui/x-data-grid";
+import { Button, Typography, Box, Chip } from "@mui/material";
 
 const ContactUs = () => {
   const { admin } = useAdmin();
   const [contact, setContact] = useState([]);
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchConatct();
+    fetchContact();
   }, []);
-  const fetchConatct = async () => {
+
+  const fetchContact = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BASEURL}/v1/api/contact/all`,
@@ -29,117 +27,32 @@ const ContactUs = () => {
           },
         }
       );
-      if (response.status == 200 && response.data.statusCode == 200) {
+      if (response.status === 200 && response.data.statusCode === 200) {
         setContact(response.data.data);
       }
     } catch (error) {
-      console.log(error); // Handle error here. For example, display an error message to the user.  //  }
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: error.response.data.message,
+        text: error.response?.data?.message || "Failed to fetch data.",
       });
+    } finally {
+      setLoading(false);
     }
   };
-  const columns = [
-    {
-      name: "Name",
-      selector: (row) => row.firstName + " " + row.lastName,
-      sortable: true,
-    },
-    {
-      name: "Email",
-      selector: (row) => row.email,
-      sortable: true,
-    },
-    {
-      name: "Phone No ",
-      selector: (row) => row.phone,
-      sortable: true,
-    },
-    {
-      name: "Message ",
-      selector: (row) => (
-        <div className="text-wrap text-break">{row.message}</div>
-      ),
-    },
-    {
-      name: "Contact Date",
-      selector: (row) => <>{dayjs(row.created).format("DD.MM.YYYY")}</>,
-      sortable: true,
-    },
-    {
-      name: "Status",
-      selector: (row) => {
-        if (row.status === "pending") {
-          return <span className="badge text-bg-warning">Pending</span>;
-        } else if (row.status === "resolved") {
-          return <span className="badge text-bg-success">Resolved</span>;
-        } else {
-          return <span className="badge text-bg-danger">Rejected</span>;
-        }
-      },
-      sortable: true,
-    },
-    {
-      name: "Take Action",
-      cell: (row) => (
-        <div className="d-flex gap-2 " >
-          {row.status === "pending" ? (
-            <>
-              <button
-                className="btn btn-sm btn-success"
-                onClick={() => solveQuery(row._id, "resolve")}
-              >
-                Resolve
-              </button>
-              <button
-                className="btn btn-sm btn-danger"
-                onClick={() => solveQuery(row._id, "reject")}
-              >
-                Reject
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                className="btn btn-sm btn-outline-warning"
-                onClick={() => solveQuery(row._id, "pending")}
-              >
-                Pendin
-              </button>
-              <button
-                className="btn btn-sm btn-success"
-                onClick={() => solveQuery(row._id, "resolve")}
-              >
-                Resolve
-              </button>
-             
-            </>
-          )}
-          
-        </div>
-      ),
-    },
-  ];
-
 
   const solveQuery = async (id, status) => {
-
     try {
-      let url;
-      if(status ==="pending"){
-        url = `${process.env.REACT_APP_BASEURL}/v1/api/contact/pending`
-      }
-      else if(status ==="resolve"){
-        url = `${process.env.REACT_APP_BASEURL}/v1/api/contact/resolve`
-      }
-      else {
-        url = `${process.env.REACT_APP_BASEURL}/v1/api/contact/reject`
-      }
+      const url =
+        status === "pending"
+          ? `${process.env.REACT_APP_BASEURL}/v1/api/contact/pending`
+          : status === "resolve"
+          ? `${process.env.REACT_APP_BASEURL}/v1/api/contact/resolve`
+          : `${process.env.REACT_APP_BASEURL}/v1/api/contact/reject`;
+
       const res = await axios.post(
         url,
-        { id: id },
+        { id },
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`,
@@ -147,36 +60,148 @@ const ContactUs = () => {
         }
       );
 
-      if (res.status == 200) {
+      if (res.status === 200) {
         Swal.fire({
           icon: "success",
           title: "Success",
-          timer: 1500,
           text: res.data.message,
-          showConfirmButton:false,
+          timer: 1500,
+          showConfirmButton: false,
         });
-        await fetchConatct(); // Ensure fetchAdmins is awaited to get the latest data
+        fetchContact();
       }
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Error",
+        text: error.response?.data?.message || "Failed to update status.",
         timer: 1500,
-        showConfirmButton:false,
-        text: error.response?.data?.message,
       });
     }
   };
 
+  const columns = [
+    {
+      field: "name",
+      headerName: "Name",
+      valueGetter: (params, row) =>
+        `${row.firstName || ""} ${row.lastName || ""}`,
+      flex: 1,
+      sortable: true,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      flex: 1,
+      sortable: true,
+    },
+    {
+      field: "phone",
+      headerName: "Phone No",
+      flex: 0.8,
+      sortable: true,
+    },
+    {
+      field: "message",
+      headerName: "Message",
+      flex: 2,
+      renderCell: (params) => (
+        <Typography variant="body2" noWrap>
+          {params.row.message}
+        </Typography>
+      ),
+    },
+    {
+      field: "created",
+      headerName: "Contact Date",
+      flex: 0.8,
+      sortable: true,
+      renderCell: (params) => dayjs(params.row.created).format("DD.MM.YYYY"),
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      flex: 0.8,
+      renderCell: (params) => {
+        const statusColor =
+          params.row.status === "pending"
+            ? "warning"
+            : params.row.status === "resolved"
+            ? "success"
+            : "error";
+        return <Chip label={params.row.status} color={statusColor} />;
+      },
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      renderCell: (params) => {
+        const { row } = params;
+        return (
+          <Box display="flex" gap={1}>
+            {row.status === "pending" ? (
+              <>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="success"
+                  onClick={() => solveQuery(row._id, "resolve")}
+                >
+                  Resolve
+                </Button>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="error"
+                  onClick={() => solveQuery(row._id, "reject")}
+                >
+                  Reject
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  color="warning"
+                  onClick={() => solveQuery(row._id, "pending")}
+                >
+                  Pending
+                </Button>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="success"
+                  onClick={() => solveQuery(row._id, "resolve")}
+                >
+                  Resolve
+                </Button>
+              </>
+            )}
+          </Box>
+        );
+      },
+    },
+  ];
+
   return (
-    <div>
-      <DataTable
-        title="Contact us Of Shivam Medical "
+    <Box p={4} boxShadow={3} borderRadius={2} bgcolor="white">
+      <Typography variant="h5" gutterBottom>
+        Contact Us of Shivam Medical
+      </Typography>
+      <DataGrid
+        rows={contact}
         columns={columns}
-        data={contact}
-        pagination
+        autoHeight
+        disableSelectionOnClick
+        pageSize={10}
+        rowsPerPageOptions={[10, 20, 50]}
+        loading={loading}
+        getRowId={(row) => row._id}
       />
-    </div>
+    </Box>
   );
 };
+
 export default ContactUs;

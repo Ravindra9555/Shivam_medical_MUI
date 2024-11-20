@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { TextField, Button } from "@mui/material";
-// import {
-//   LocalizationProvider,
-//   DatePicker,
-//   TimePicker,
-// } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"; // Importing the adapter
 import dayjs from "dayjs"; // Import dayjs for date handling
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useUser } from "../../../context/UserContext";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import Appointments from "./Appointments";
 const BookAppointment = () => {
   const { user } = useUser();
@@ -55,14 +49,14 @@ const BookAppointment = () => {
     setAppointmentData({ ...appointmentData, [name]: value });
   };
 
-  const handleDateChange = (newValue) => {
-    setAppointmentData({ ...appointmentData, date: newValue });
+  const handleDateChange = (event) => {
+    setAppointmentData((prev) => ({ ...prev, date: event.target.value }));
   };
-
-  const handleTimeChange = (newValue) => {
-    setAppointmentData({ ...appointmentData, time: newValue });
+  
+  const handleTimeChange = (event) => {
+    setAppointmentData((prev) => ({ ...prev, time: event.target.value }));
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -87,8 +81,8 @@ const BookAppointment = () => {
       setAppointmentData({
         doctorId: "",
         patientId: user.id,
-        date: dayjs(),
-        time: dayjs(),
+        date: "",
+        time: "",
         comments: "",
       });
     } catch (error) {
@@ -105,22 +99,23 @@ const BookAppointment = () => {
 
   return (
     <>
-    
-    {/* <LocalizationProvider dateAdapter={AdapterDayjs}> */}
-      <div className="container mt-1">
+      <div className="container mt-1 p-4  rounded-4 border">
         <h5>Book Appointment</h5>
         <form onSubmit={handleSubmit} className="mt-4">
           <div className="row">
             <div className="col-md-4 mb-3">
               <FormControl fullWidth>
-                <InputLabel id="doctor-select-label">Select Doctor</InputLabel>
+                <InputLabel size="small" id="doctor-select-label">
+                  Select Doctor
+                </InputLabel>
                 <Select
+                  size="small"
                   labelId="doctor-select-label"
                   name="doctorId"
                   value={appointmentData.doctorId}
                   onChange={handleChange}
                   required
-                       label="Select Doctor"
+                  label="Select Doctor"
                 >
                   <MenuItem value="">
                     <em>Please select a doctor</em>
@@ -135,32 +130,29 @@ const BookAppointment = () => {
             </div>
             <div className="mb-3 col-md-4">
               <TextField
+                fullWidth
+                size="small"
                 label="Select Date"
                 type="date"
-                minDate={dayjs()}
-                format="DD/MM/YY"
                 value={appointmentData.date}
                 onChange={handleDateChange}
-                // renderInput={(params) => (
-                //   <TextField {...params} fullWidth required />
-                // )}
               />
             </div>
             <div className="mb-3 col-md-4">
               <TextField
-              type="time"
+                fullWidth
+                size="small"
+                type="time"
                 label="Select Time"
                 value={appointmentData.time}
                 onChange={handleTimeChange}
-                // renderInput={(params) => (
-                //   <TextField {...params} fullWidth required />
-                // )}
               />
             </div>
           </div>
           <div className="mb-3">
             <TextField
               fullWidth
+              size="small"
               label="Comments"
               variant="outlined"
               name="comments"
@@ -174,12 +166,10 @@ const BookAppointment = () => {
           </Button>
         </form>
       </div>
-    {/* </LocalizationProvider> */}
-    <hr/>
-    <div className="mt-5">
-
-    <Appointments/>
-    </div>
+     
+      <div className="mt-5">
+        <Appointments />
+      </div>
     </>
   );
 };
