@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  font-family: "Noto Serif", serif;
+  font-optical-sizing: auto;
+
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+/*  vaiables  */
+.btn-primary{
+  background-color: #64AFAE !important;
+}
+.btn-outline-primary{
+
+  border: 1px solid  #64AFAE !important;
+  color:  #64AFAE !important;
+}
+.btn-outline-primary:hover{
+
+   background-color:  #64AFAE !important;
+  color:  #ffffff !important;
+}
+.primary-color{
+  color: #64AFAE !important;
+}
+.background{
+   background-color:  #64AFAE !important
+}
+.secondary-background{
+   background-color: #f2f7f7 !important;
+}
+/*  leader ship team  */
+.leadership-section h3 {
+  color: #003366;
+}
+
+.social-links a {
+  font-size: 1.5rem;
+  margin-right: 10px;
+  color: #007bff;
+}
+
+.social-links a:hover {
+  color: #0056b3;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+}
+
+.card-body {
+  text-align: center;
+}
+
+.card img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 15px auto;
+}
+
+
+/* footer */
+.footer {
+  background-color: #f8f9fa;
+  padding: 40px 0;
+  color: #333;
+}
+
+.footer h4 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.footer p {
+  margin-bottom: 15px;
+}
+
+.footer .social-icons {
+  margin-top: 20px;
+}
+
+.footer .social-icons a {
+  color: #007bff;
+  font-size: 1.5rem;
+  margin-right: 15px;
+  transition: color 0.3s;
+}
+
+.footer .social-icons a:hover {
+  color: #0056b3;
+}
+
+.footer .text-center {
+  margin-top: 20px;
+}
+
+.footer .text-center p {
+  margin-bottom: 0;
+  color: #555;
+}
+
+
+/*  */
