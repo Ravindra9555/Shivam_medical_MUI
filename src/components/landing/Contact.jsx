@@ -23,7 +23,7 @@
 //   const submitHandler = async (e) => {
 //     e.preventDefault(); // Prevent form from refreshing
 //     try {
-//       const response = await axios.post(`${import.meta.env.VITE_BASEURL}/v1/api/contact/contact`, formData);
+//       const response = await axios.post(`${process.env.REACT_APP_BASEURL}/v1/api/contact/contact`, formData);
 //       if (response.status === 200) {
 //         Swal.fire({
 //           icon: 'success',
@@ -229,7 +229,7 @@ const Contact = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/contact/contact`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/contact/contact`,
         formData
       );
       if (response.status === 200) {

@@ -15,7 +15,7 @@ const Customers = () => {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASEURL}/v1/api/users/alluser`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/users/alluser`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`,
@@ -33,9 +33,9 @@ const Customers = () => {
   const handleToggleActive = async (userId, isActive) => {
     let url;
     if (!isActive) {
-      url = `${import.meta.env.VITE_BASEURL}/v1/api/users/useractive`;
+      url = `${process.env.REACT_APP_BASEURL}/v1/api/users/useractive`;
     } else {
-      url = `${import.meta.env.VITE_BASEURL}/v1/api/users/userinactive`;
+      url = `${process.env.REACT_APP_BASEURL}/v1/api/users/userinactive`;
     }
     try {
       const response = await axios.post(
@@ -78,7 +78,7 @@ const Customers = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.post(
-            `${import.meta.env.VITE_BASEURL}/v1/api/users/deleteUser`,
+            `${process.env.REACT_APP_BASEURL}/v1/api/users/deleteUser`,
             {
               id: userId,
             },

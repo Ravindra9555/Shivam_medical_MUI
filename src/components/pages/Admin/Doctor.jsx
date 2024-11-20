@@ -86,7 +86,7 @@ const Doctor = () => {
   const fetchDoctors = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASEURL}/v1/api/doctorMaster/getAllDoctors`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/doctorMaster/getAllDoctors`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -122,7 +122,7 @@ const Doctor = () => {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/doctorMaster/addDoctor`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/doctorMaster/addDoctor`,
         finalData,
         {
           headers: {
@@ -166,7 +166,7 @@ const Doctor = () => {
   const EnableDisable = async (doctorId) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/doctorMaster/makeDoctorActive`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/doctorMaster/makeDoctorActive`,
         {id: doctorId},
         {
           headers: {
@@ -193,7 +193,7 @@ const Doctor = () => {
   const deleteDoctor = async (doctorId) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/doctorMaster/deleteDoctor`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/doctorMaster/deleteDoctor`,
         {id: doctorId},
         {
           headers: {

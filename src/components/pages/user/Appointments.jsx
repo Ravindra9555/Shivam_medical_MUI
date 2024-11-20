@@ -90,7 +90,7 @@ const Appointments = () => {
   const fetchAppointments = async () => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/appointment/getAllAppointmentsByDate`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/appointment/getAllAppointmentsByDate`,
         {
           date: date.format("YYYY-MM-DD"), // Format date correctly for the backend
         },
@@ -114,7 +114,7 @@ const Appointments = () => {
 
   const getAllAppointments = async () => {
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BASEURL}/v1/api/appointment/getAllAppointmentsById`,{
+      const res = await axios.post(`${process.env.REACT_APP_BASEURL}/v1/api/appointment/getAllAppointmentsById`,{
             id: user.id
       }, {
         headers: {
@@ -135,7 +135,7 @@ const Appointments = () => {
   const cancelAppointment = async (appointmentId) => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/appointment/rejectAppointment`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/appointment/rejectAppointment`,
         {
           id:appointmentId
         },
@@ -167,7 +167,7 @@ const Appointments = () => {
   const RescheduleAppointment = async (appointmentId) => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/appointment/changeAppointmentStatusactive`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/appointment/changeAppointmentStatusactive`,
         {
           id:appointmentId
         },
@@ -200,7 +200,7 @@ const Appointments = () => {
    const deleteAppointment = async (appointmentId) => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/appointment/deleteAppointment`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/appointment/deleteAppointment`,
         {
           id:appointmentId
         },

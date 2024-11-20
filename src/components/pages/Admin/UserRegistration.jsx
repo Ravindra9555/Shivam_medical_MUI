@@ -51,7 +51,7 @@ const UserRegistration = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/users/register`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/users/register`,
         data,
         {
           headers: {

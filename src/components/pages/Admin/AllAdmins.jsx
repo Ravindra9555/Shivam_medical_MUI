@@ -22,7 +22,7 @@ const AllAdmins = () => {
   const fetchAdmins = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASEURL}/v1/api/admin/all`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/admin/all`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`,
@@ -134,7 +134,7 @@ const AllAdmins = () => {
       if (result.isConfirmed) {
         try {
           const response = await axios.post(
-            `${import.meta.env.VITE_BASEURL}/v1/api/admin/delete`,
+            `${process.env.REACT_APP_BASEURL}/v1/api/admin/delete`,
             { id: id },
             {
               headers: {
@@ -174,8 +174,8 @@ const AllAdmins = () => {
     }
     try {
       let url = active
-        ? `${import.meta.env.VITE_BASEURL}/v1/api/admin/makeinactive`
-        : `${import.meta.env.VITE_BASEURL}/v1/api/admin/makeactive`;
+        ? `${process.env.REACT_APP_BASEURL}/v1/api/admin/makeinactive`
+        : `${process.env.REACT_APP_BASEURL}/v1/api/admin/makeactive`;
 
       const res = await axios.post(
         url,
@@ -236,7 +236,7 @@ const AllAdmins = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/admin/register`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/admin/register`,
         submissionData,
         {
           headers: {

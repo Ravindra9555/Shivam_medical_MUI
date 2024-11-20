@@ -38,7 +38,7 @@ const ResetPassword = () => {
 
     try {
       // Make a POST request to update the password
-      const response = await axios.post(`${import.meta.env.VITE_BASEURL}/v1/api/users/changepassword`, {
+      const response = await axios.post(`${process.env.REACT_APP_BASEURL}/v1/api/users/changepassword`, {
         password: formData.password,
         resetToken: resetToken,
       });

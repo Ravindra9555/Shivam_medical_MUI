@@ -25,7 +25,7 @@ const ForgetPassword = () => {
 
     try {
       // Make a POST request to the backend to send the reset password link
-      const response = await axios.post(`${import.meta.env.VITE_BASEURL}/v1/api/users/resetlink`, { email });
+      const response = await axios.post(`${process.env.REACT_APP_BASEURL}/v1/api/users/resetlink`, { email });
       if (response.status === 200) {
         setMessage(response.data.message);
         Swal.fire({

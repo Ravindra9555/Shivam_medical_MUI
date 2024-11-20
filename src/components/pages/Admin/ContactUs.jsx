@@ -22,7 +22,7 @@ const ContactUs = () => {
   const fetchConatct = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASEURL}/v1/api/contact/all`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/contact/all`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`,
@@ -129,13 +129,13 @@ const ContactUs = () => {
     try {
       let url;
       if(status ==="pending"){
-        url = `${import.meta.env.VITE_BASEURL}/v1/api/contact/pending`
+        url = `${process.env.REACT_APP_BASEURL}/v1/api/contact/pending`
       }
       else if(status ==="resolve"){
-        url = `${import.meta.env.VITE_BASEURL}/v1/api/contact/resolve`
+        url = `${process.env.REACT_APP_BASEURL}/v1/api/contact/resolve`
       }
       else {
-        url = `${import.meta.env.VITE_BASEURL}/v1/api/contact/reject`
+        url = `${process.env.REACT_APP_BASEURL}/v1/api/contact/reject`
       }
       const res = await axios.post(
         url,

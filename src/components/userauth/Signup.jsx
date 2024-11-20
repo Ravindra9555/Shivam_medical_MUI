@@ -31,7 +31,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.post (`${import.meta.env.VITE_BASEURL}/v1/api/users/register`,formData);
+      const res = await axios.post (`${process.env.REACT_APP_BASEURL}/v1/api/users/register`,formData);
       if(res.status == 200 && res.data.statusCode==201){
          Swal.fire({
           icon:'success',

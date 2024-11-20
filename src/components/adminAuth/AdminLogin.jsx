@@ -43,7 +43,7 @@ const AdminLogin = () => {
     try {
       setLoading(true);
       const res = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/admin/login`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/admin/login`,
         formData
       );
       if (res.status === 200 && res.data.statusCode === 200) {
@@ -79,7 +79,7 @@ const AdminLogin = () => {
 
   useEffect(() => {
     if (isLoginSuccessful) {
-      navigate("/appointments");
+      navigate("/admin");
     }
   }, [isLoginSuccessful, navigate]);
 

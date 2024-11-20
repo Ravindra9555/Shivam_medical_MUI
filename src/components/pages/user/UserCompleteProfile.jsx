@@ -21,7 +21,7 @@ const UserCompleteProfile = () => {
   const handleSubmit = async() => {
     // Here you can add logic to save name and profilePic
     try {
-         const res= await axios.post(`${import.meta.env.VITE_BASEURL}/v1/api/users/update`,{
+         const res= await axios.post(`${process.env.REACT_APP_BASEURL}/v1/api/users/update`,{
             name,
             profilePic,
             id: user.id

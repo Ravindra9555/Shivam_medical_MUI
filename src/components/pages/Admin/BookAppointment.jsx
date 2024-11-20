@@ -39,7 +39,7 @@ const BookAppointment = () => {
     try {
       const res = await axios.get(
         `${
-          import.meta.env.VITE_BASEURL
+          process.env.REACT_APP_BASEURL
         }/v1/api/doctorMaster/getAllDoctorsActive`,
         {
           headers: {
@@ -63,7 +63,7 @@ const BookAppointment = () => {
       // Search only if the query is longer than 2 characters
       try {
         const res = await axios.post(
-          `${import.meta.env.VITE_BASEURL}/v1/api/users/searchuser`,
+          `${process.env.REACT_APP_BASEURL}/v1/api/users/searchuser`,
           {
             keyword: query,
           },
@@ -107,7 +107,7 @@ const BookAppointment = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/appointment/addAppointment`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/appointment/addAppointment`,
         appointmentData,
         {
           headers: {

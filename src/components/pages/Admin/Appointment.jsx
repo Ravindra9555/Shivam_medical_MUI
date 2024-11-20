@@ -135,7 +135,7 @@ const Appointment = () => {
     try {
       const res = await axios.post(
         `${
-          import.meta.env.VITE_BASEURL
+          process.env.REACT_APP_BASEURL
         }/v1/api/appointment/getAllAppointmentsByDate`,
         {
           date: date.format("YYYY-MM-DD"), // Format date to YYYY-MM-DD for API
@@ -162,7 +162,7 @@ const Appointment = () => {
   const getAllAppointments = async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BASEURL}/v1/api/appointment/getAllAppointments`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/appointment/getAllAppointments`,
         {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("adminToken")}`,
@@ -186,7 +186,7 @@ const Appointment = () => {
   const deleteAppointment = async (appointmentId) => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/appointment/deleteAppointment`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/appointment/deleteAppointment`,
         {
           id: appointmentId,
         },
@@ -217,7 +217,7 @@ const Appointment = () => {
   const cancelAppointment = async (appointmentId) => {
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BASEURL}/v1/api/appointment/rejectAppointment`,
+        `${process.env.REACT_APP_BASEURL}/v1/api/appointment/rejectAppointment`,
         {
           id: appointmentId,
         },
@@ -250,7 +250,7 @@ const Appointment = () => {
     try {
       const res = await axios.post(
         `${
-          import.meta.env.VITE_BASEURL
+          process.env.REACT_APP_BASEURL
         }/v1/api/appointment/changeAppointmentStatusactive`,
         {
           id: appointmentId,
@@ -283,7 +283,7 @@ const Appointment = () => {
     try {
       const res = await axios.post(
         `${
-          import.meta.env.VITE_BASEURL
+          process.env.REACT_APP_BASEURL
         }/v1/api/appointment/changeAppointmentStatusComplete`,
         {
           id: appointmentId,

@@ -12,48 +12,29 @@ const Menuitems = [
   {
     title: "Dashboard",
     icon: DashboardOutlinedIcon,
-    href: "/dashboards/dashboard1",
+    href: "/admin/dashboard",
   },
   {
-    title: "Autocomplete",
+    title: "Appointments",
     icon: AddToPhotosOutlinedIcon,
-    href: "/form-elements/autocomplete",
+    href: "/admin/appointments",
   },
   {
-    title: "Buttons",
+    title: "Contact",
     icon: AspectRatioOutlinedIcon,
-    href: "/form-elements/button",
+    href: "/admin/contact-us",
   },
   {
-    title: "Checkbox",
+    title: "Customers",
     icon: AssignmentTurnedInOutlinedIcon,
-    href: "/form-elements/checkbox",
+    href: "/admin/customers",
   },
   {
-    title: "Radio",
+    title: "Doctors",
     icon: AlbumOutlinedIcon,
-    href: "/form-elements/radio",
+    href: "/admin/doctors",
   },
-  {
-    title: "Slider",
-    icon: SwitchCameraOutlinedIcon,
-    href: "/form-elements/slider",
-  },
-  {
-    title: "Switch",
-    icon: SwitchLeftOutlinedIcon,
-    href: "/form-elements/switch",
-  },
-  {
-    title: "Form",
-    icon: DescriptionOutlinedIcon,
-    href: "/form-layouts/form-layouts",
-  },
-  {
-    title: "Table",
-    icon: AutoAwesomeMosaicOutlinedIcon,
-    href: "/tables/basic-table",
-  },
+ 
 ];
 
 export default Menuitems;

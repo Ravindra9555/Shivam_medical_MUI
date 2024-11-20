@@ -31,7 +31,7 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.post(`${import.meta.env.VITE_BASEURL}/v1/api/users/login`, formData);
+      const res = await axios.post(`${process.env.REACT_APP_BASEURL}/v1/api/users/login`, formData);
       if (res.status === 200 && res.data.statusCode === 200) {
         setUser({
           id: res.data.data.user._id,
@@ -49,7 +49,7 @@ const Login = () => {
           timer: 800,
         });
         localStorage.setItem("userToken", res.data.access_token);
-        navigate("/user/userdashboard");
+        navigate("/user");
       }
     } catch (error) {
       Swal.fire({

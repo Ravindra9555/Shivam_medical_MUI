@@ -67,60 +67,38 @@ const ThemeRoutes = [
     path: "/adminlogin",
     element: <AdminLogin />,
   },
-//  admin routes
+
+  // Admin routes
   {
-    path: "/",
+    path: "/admin",
     element: <AdminLayout />,
     children: [
-      { path: "/", element: <Navigate to="dashboards/dashboard1" /> },
-      { path: "dashboards/dashboard1", exact: true, element: <Dashboard1 /> },
-      { path: "dashboard", element: <Dashboard /> },
+      { path: "", element: <Navigate to="dashboard" /> },
+      { path: "dashboard", element: <Dashboard1 /> },
       { path: "appointments", element: <Appointments /> },
       { path: "doctors", element: <Doctor /> },
       { path: "admins", element: <AllAdmin /> },
-      { path: "adminprofile", element: <AdminProfile /> },
+      { path: "profile", element: <AdminProfile /> },
       { path: "contact-us", element: <ContactUs /> },
       { path: "customers", element: <Customers /> },
       { path: "orders", element: <Orders /> },
       { path: "userregister", element: <UserRegistration /> },
       { path: "bookappointmentbyadmin", element: <BookAppointmentByAdmin /> },
       { path: "*", element: <Error /> },
-      
     ],
   },
 
-  // User-specific routes
+  // User routes
   {
-    path: "/",
+    path: "/user",
     element: <UserLayout />,
     children: [
-      { path: "/", element: <Navigate to="bookappointment" /> },
-      { path: "userdashboard", element: < Userdashboard /> },
+      { path: "", element: <Navigate to="dashboard" /> },
+      { path: "dashboard", element: <Userdashboard /> },
       { path: "bookappointment", element: <BookAppointment /> },
       { path: "*", element: <Error /> },
-    
     ],
   },
-
-  // Admin-specific routes
-  // {
-  //   path: "/admin",
-  //   element: <AdminLayout />,
-  //   children: [
-  //     { path: "/", element: <Navigate to="dashboard" /> },
-      // { path: "dashboard", element: <Dashboard /> },
-      // { path: "appointments", element: <Appointments /> },
-      // { path: "doctors", element: <Doctor /> },
-      // { path: "admins", element: <AllAdmin /> },
-      // { path: "adminprofile", element: <AdminProfile /> },
-      // { path: "contact-us", element: <ContactUs /> },
-      // { path: "customers", element: <Customers /> },
-      // { path: "orders", element: <Orders /> },
-      // { path: "userregister", element: <UserRegistration /> },
-      // { path: "bookappointmentbyadmin", element: <BookAppointmentByAdmin /> },
-      // { path: "*", element: <Error /> },
-  //   ],
-  // },
 ];
 
 export default ThemeRoutes;
