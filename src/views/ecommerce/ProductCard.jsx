@@ -1,14 +1,25 @@
 import React from "react";
-import { Card, CardContent, Typography, Button, Grid } from "@mui/material";
-
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Grid,
+  colors,
+  Box,
+} from "@mui/material";
+import useCartStore from "../../store/useCartStore";
 const ProductCard = ({ product }) => {
+
+   const addToCart = useCartStore((state) => state.addToCart);
+
   return (
     <div>
       <Card
         variant="outlined"
         sx={{
           p: 0,
-          width: "100%",
+          // width: "100%",
         }}
       >
         <img src={product.img} alt="img" width="100%" />
@@ -36,14 +47,35 @@ const ProductCard = ({ product }) => {
           >
             {product.subtitle}
           </Typography>
+          <Typography
+            sx={{
+              fontSize: "16px",
+              fontWeight: "400",
+              mt: 2,
+            }}
+          >
+            ₹{" "}
+            <Box
+              component="span"
+              sx={{ color: "red", textDecoration: "line-through" }}
+            >
+              {product.mrp}
+            </Box>{" "}
+            {product.price}
+          </Typography>
+          <Typography sx={{ color: "green" }} variant="h5">
+            {product.discount}% Off
+          </Typography>
           <Button
             variant="contained"
+            fullWidth
             sx={{
               mt: "15px",
             }}
             color={product.btncolor}
+            onClick={() => addToCart(product)}
           >
-            Learn More
+            Add to Cart
           </Button>
         </CardContent>
       </Card>

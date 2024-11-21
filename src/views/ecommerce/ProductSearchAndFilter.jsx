@@ -1,15 +1,17 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { Grid, Select, MenuItem, FormControl, InputLabel, Button } from "@mui/material";
+import { Grid, Select, MenuItem, FormControl, InputLabel, Button, Box } from "@mui/material";
 
 const ProductSearchAndFilter = () => {
     const medicineTypes = ["Tablet", "Capsule", "Syrup", "Injection", "Cream"];
     const categories = ["Allopathy", "Unani", "Ayurveda", "Homeopathy", "Herbal"];
 
   return (
+    <Box sx={{ bgcolor:"paper",p:2, boxShadow:2, borderRadius:2  }} >
+
     <Grid container spacing={2} >
-      <Grid item xs={12} sm={6} md={4}>
+      <Grid item xs={12} sm={6} md={3}>
         <Autocomplete
         size="small"
           id="free-solo-demo"
@@ -57,10 +59,11 @@ const ProductSearchAndFilter = () => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={3} sm={2} md={2}>
-         <Button variant="contained"   color="primary"> Apply Filter</Button>
+      <Grid item xs={12} sm={6} md={3}>
+         <Button variant="contained"  fullWidth color="primary"> Apply Filter</Button>
       </Grid>
     </Grid>
+    </Box>
   );
 };
 

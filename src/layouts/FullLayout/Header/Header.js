@@ -21,7 +21,6 @@ import {
   ListItemIcon,
 } from "@mui/material";
 
-import userimg from "../../../assets/images/users/user.jpg";
 import { useAdmin } from "../../../context/AdminContext";
 import { useNavigate } from "react-router-dom";
 const Header = (props) => {
@@ -214,7 +213,7 @@ const Header = (props) => {
           >
             <Avatar
               src={admin.profilePic || "https://via.placeholder.com/100"}
-              alt={userimg}
+              // alt={userimg}
               sx={{
                 width: "30px",
                 height: "30px",
