@@ -27,8 +27,8 @@ const About = () => {
         "An experienced leader with a passion for improving healthcare systems.",
       image: jp,
       social: {
-        twitter: "https://twitter.com/johndoe",
-        linkedin: "https://linkedin.com/in/johndoe",
+        twitter: "https://twitter.com/",
+        linkedin: "https://linkedin.com/in/",
       },
     },
     {
@@ -38,8 +38,8 @@ const About = () => {
         "A dedicated physician overseeing our clinical operations and patient care.",
       image: "https://via.placeholder.com/150",
       social: {
-        twitter: "https://twitter.com/janesmith",
-        linkedin: "https://linkedin.com/in/janesmith",
+        twitter: "https://twitter.com/",
+        linkedin: "https://linkedin.com/",
       },
     },
   ];
@@ -59,7 +59,7 @@ const About = () => {
   ];
 
   return (
-    <Container sx={{ py: 5 }} id="about">
+    <Container id="about"  sx={{mt:4}}>
       <Grid container spacing={4} justifyContent="center">
         <Grid item xs={12}>
           <Typography variant="h4" component="h2" gutterBottom>
@@ -75,25 +75,19 @@ const About = () => {
         {/* Mission and Vision Section */}
 
         <Grid
-          container
+          container // Added container prop
           xs={12}
-          columnSpacing={{ xs: 2, md: 4 }}
-          rowSpacing={4}
           mt={4}
+          spacing={2} // Optional: adds spacing between grid items
+          sx={{ px: 2 }} // Optional: horizontal padding for left and right margins
         >
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              padding: "20px",
-            }}
-          >
+          <Grid item xs={12} md={6} mb={1}>
             <Box
               sx={{
-                backgroundColor: "grey.100",
+                backgroundColor: "grey.50",
                 p: 3,
                 borderRadius: 2,
+                boxShadow: 3,
                 textAlign: "center",
               }}
             >
@@ -108,19 +102,15 @@ const About = () => {
             </Box>
           </Grid>
 
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              padding: "20px",
-            }}
-          >
+          <Grid item xs={12} md={6}>
             <Box
+   
               sx={{
-                backgroundColor: "grey.100",
+                backgroundColor: "grey.50",
                 p: 3,
                 borderRadius: 2,
+             
+                boxShadow: 3,
                 textAlign: "center",
               }}
             >
@@ -154,8 +144,14 @@ const About = () => {
                   />
                 </Box>{" "}
                 <CardContent>
-                  <Typography variant="h6" textAlign={"center"}>{leader.name}</Typography>
-                  <Typography variant="subtitle1" textAlign={"center"} color="text.secondary">
+                  <Typography variant="h6" textAlign={"center"}>
+                    {leader.name}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    textAlign={"center"}
+                    color="text.secondary"
+                  >
                     {leader.title}
                   </Typography>
                   <Typography>{leader.description}</Typography>
@@ -204,8 +200,8 @@ const About = () => {
             <Grid item xs={12} md={6} key={index}>
               <Card sx={{ boxShadow: 3 }}>
                 <CardContent>
-                  <Box mb={2}>{service.icon}</Box>
-                  <Typography variant="h6">{service.title}</Typography>
+                  <Box mb={2} display={"flex"} gap={1} alignItems={"center"}>{service.icon} <Typography variant="h5">{service.title}</Typography> </Box>
+                  
                   <Typography>{service.description}</Typography>
                 </CardContent>
               </Card>
