@@ -21,7 +21,7 @@ const ProductSearchAndFilter = () => {
         />
       </Grid>
       {/* Medicine Type Select Field */}
-      <Grid item xs={12} sm={6} md={4}>
+      <Grid item xs={12} sm={6} md={3}>
         <FormControl fullWidth variant="outlined">
           <InputLabel  size="small" id="medicine-type-label">Medicine Type</InputLabel>
           <Select
@@ -57,9 +57,9 @@ const ProductSearchAndFilter = () => {
           </Select>
         </FormControl>
       </Grid>
-      {/* <Grid item xs={12} sm={6} md={1}>
+      <Grid item xs={3} sm={2} md={2}>
          <Button variant="contained"   color="primary"> Apply Filter</Button>
-      </Grid> */}
+      </Grid>
     </Grid>
   );
 };
