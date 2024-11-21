@@ -35,7 +35,7 @@ const Dashboard = lazy(() => import("../components/pages/Admin/Dashboard"));
 const BookAppointmentByAdmin = lazy(()=> import("../components/pages/Admin/BookAppointment"))
 const UserRegistration = lazy(()=> import("../components/pages/Admin/UserRegistration"));
 
-
+const ProductList  =  lazy(()=> import("../views/ecommerce/ProductList.jsx"));
 const ThemeRoutes = [
   {
     path: "/",
@@ -64,6 +64,10 @@ const ThemeRoutes = [
   {
     path: "/adminlogin",
     element: <AdminLogin />,
+  },
+  {
+    path: "/products",
+    element: <ProductList />,
   },
 
   // Admin routes

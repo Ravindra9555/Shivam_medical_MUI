@@ -111,6 +111,12 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
+            <Button
+             sx={{marginRight:"10px"}}
+              variant="contained"
+              color="primary"
+              onClick={() => navigate("/products")}
+            >Buy Medicines</Button>
 
           {/* Login Button */}
           {!isLoginPage && (

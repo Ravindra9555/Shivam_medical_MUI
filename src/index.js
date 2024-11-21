@@ -9,9 +9,6 @@ import Spinner from "./views/Spinner/Spinner";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import "boxicons/dist/boxicons.js";
-import "boxicons/css/boxicons.min.css";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 
