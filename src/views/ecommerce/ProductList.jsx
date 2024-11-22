@@ -9,6 +9,8 @@ import { Box, Container, Grid } from "@mui/material";
 import ResponsiveAppBar from "../../components/landing/HomeNavbar";
 import ProductSearchAndFilter from "./ProductSearchAndFilter";
 import Cart from "./Cart";
+
+
 const products = [
   {
     id: "1",

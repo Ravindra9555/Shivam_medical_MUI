@@ -1,7 +1,7 @@
 // /src/stores/useCartStore.js
 import { create } from "zustand";
 
-const useCartStore = create((set) => ({
+const useCartStore = create((set, get) => ({
   cart: [],
   addToCart: (product) =>
     set((state) => {
@@ -41,7 +41,19 @@ const useCartStore = create((set) => ({
           : item
       ),
     })),
+
   clearCart: () => set({ cart: [] }),
+
+  totalPrice: () =>{
+    const cart = get().cart;
+    return cart.reduce((total, item)=> total+item.price* item.quantity,0);
+
+  },
+  priceBeforeDiscount :()=>{
+     const cart = get().cart;
+    return cart.reduce((total, item)=> total+item.mrp * item.quantity,0);
+  }
+  
 }));
 
 export default useCartStore;
