@@ -35,9 +35,12 @@ const Dashboard = lazy(() => import("../components/pages/Admin/Dashboard"));
 const BookAppointmentByAdmin = lazy(()=> import("../components/pages/Admin/BookAppointment"))
 const UserRegistration = lazy(()=> import("../components/pages/Admin/UserRegistration"));
 
-const ProductList  =  lazy(()=> import("../views/ecommerce/ProductList.jsx"));
-const Cart = lazy (()=> import ("../views/ecommerce/Cart.js"));
+//  ecommerce  
 
+const ProductList  =  lazy(()=> import("../views/ecommerce/ProductList.jsx"));
+const Cart = lazy (()=> import ("../views/ecommerce/Cart.jsx"));
+ const AddProduct = lazy(()=> import ("../views/ecommerce/AddProduct.jsx"))
+ const AllProducts = lazy(()=> import ("../views/ecommerce/AllProductList.jsx"))
 const ThemeRoutes = [
   {
     path: "/",
@@ -92,6 +95,8 @@ const ThemeRoutes = [
       { path: "orders", element: <Orders /> },
       { path: "userregister", element: <UserRegistration /> },
       { path: "bookappointmentbyadmin", element: <BookAppointmentByAdmin /> },
+      { path: "addproduct", element: <AddProduct /> },
+      { path: "allproducts", element: <AllProducts /> },
       { path: "*", element: <Error /> },
     ],
   },

@@ -4,6 +4,7 @@ import { TextField, Button, Card, Container, Grid, Alert, Typography } from "@mu
 import Loader from "../loader/Loader";
 import axios from "axios";
 import Swal from "sweetalert2";
+import userService from "../../api/userService";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -25,7 +26,8 @@ const ForgetPassword = () => {
 
     try {
       // Make a POST request to the backend to send the reset password link
-      const response = await axios.post(`${process.env.REACT_APP_BASEURL}/v1/api/users/resetlink`, { email });
+      // const response = await axios.post(`${process.env.REACT_APP_BASEURL}/v1/api/users/resetlink`, { email });
+      const response = await userService.resetLink({email})
       if (response.status === 200) {
         setMessage(response.data.message);
         Swal.fire({

@@ -10,7 +10,7 @@ import HomeNavbar from "../landing/HomeNavbar";
 import loginimg from "../../assets/login.svg";
 import Loader from "../loader/Loader";
  import { Link } from "react-router-dom";
-
+ import userService from "../../api/userService";
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -31,7 +31,8 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.post(`${process.env.REACT_APP_BASEURL}/v1/api/users/login`, formData);
+      // const res = await axios.post(`${process.env.REACT_APP_BASEURL}/v1/api/users/login`, formData);
+       const res = await userService.userLogin(formData);
       if (res.status === 200 && res.data.statusCode === 200) {
         setUser({
           id: res.data.data.user._id,
@@ -55,7 +56,7 @@ const Login = () => {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: error.response.data.message,
+        text: error.response?.data?.message || "An unexpected error occurred. Please try again.",
       });
     } finally {
       setLoading(false);
