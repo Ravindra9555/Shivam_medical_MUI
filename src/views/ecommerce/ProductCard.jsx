@@ -22,7 +22,7 @@ const ProductCard = ({ product }) => {
           // width: "100%",
         }}
       >
-        <img src={product.img} alt="img" width="100%" />
+        <img src={product.image} alt="img" width="100%" />
         <CardContent
           sx={{
             paddingLeft: "30px",

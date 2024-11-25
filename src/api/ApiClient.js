@@ -7,6 +7,7 @@ const createAxiosInstance = (baseURL, tokenKey) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    // timeout: 100000, // Timeout for API requests
   });
 
   // Add a request interceptor
