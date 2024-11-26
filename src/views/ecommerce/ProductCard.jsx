@@ -9,6 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import useCartStore from "../../store/useCartStore";
+ import Spinner  from "../Spinner/Spinner"
 const ProductCard = ({ product }) => {
 
    const addToCart = useCartStore((state) => state.addToCart);
@@ -22,7 +23,7 @@ const ProductCard = ({ product }) => {
           // width: "100%",
         }}
       >
-        <img src={product.image} alt="img" width="100%" />
+        <img src={product.image} alt="img" width="100%"  style={{minHeight:"200px", maxHeight:"200px"}} />
         <CardContent
           sx={{
             paddingLeft: "30px",
@@ -35,7 +36,15 @@ const ProductCard = ({ product }) => {
               fontWeight: "500",
             }}
           >
-            {product.title}
+            {product.name} ({product.type})
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: "h5.fontSize",
+              fontWeight: "400",
+            }}
+          >
+            {product.category}
           </Typography>
           <Typography
             color="textSecondary"
@@ -45,7 +54,7 @@ const ProductCard = ({ product }) => {
               mt: 1,
             }}
           >
-            {product.subtitle}
+            {product.description}
           </Typography>
           <Typography
             sx={{
@@ -72,7 +81,7 @@ const ProductCard = ({ product }) => {
             sx={{
               mt: "15px",
             }}
-            color={product.btncolor}
+            color={"warning"}
             onClick={() => addToCart(product)}
           >
             Add to Cart

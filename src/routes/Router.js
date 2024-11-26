@@ -40,7 +40,9 @@ const UserRegistration = lazy(()=> import("../components/pages/Admin/UserRegistr
 const ProductList  =  lazy(()=> import("../views/ecommerce/ProductList.jsx"));
 const Cart = lazy (()=> import ("../views/ecommerce/Cart.jsx"));
  const AddProduct = lazy(()=> import ("../views/ecommerce/AddProduct.jsx"))
- const AllProducts = lazy(()=> import ("../views/ecommerce/AllProductList.jsx"))
+ const AllProducts = lazy(()=> import ("../views/ecommerce/AllProductList.jsx"));
+ const EditProduct = lazy(()=> import ("../views/ecommerce/EditProduct.jsx"));
+
 const ThemeRoutes = [
   {
     path: "/",
@@ -97,6 +99,7 @@ const ThemeRoutes = [
       { path: "bookappointmentbyadmin", element: <BookAppointmentByAdmin /> },
       { path: "addproduct", element: <AddProduct /> },
       { path: "allproducts", element: <AllProducts /> },
+      { path: "editproduct/:id", element: <EditProduct /> },
       { path: "*", element: <Error /> },
     ],
   },

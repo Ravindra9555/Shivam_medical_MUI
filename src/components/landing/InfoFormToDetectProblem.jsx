@@ -42,15 +42,14 @@ const InfoFormToDetectProblem = () => {
       const res = await userService.generateAiResult(formData);
       if (res.status == 200) {
         setResponse(res.data.data.response.candidates[0].content.parts[0].text);
-         setFormData({
-            age: "",
-            gender: "",
-            medicalHistory: "",
-            medications: "",
-            lifestyleFactors: "",
-            symptoms: "",
-          });
-      
+        setFormData({
+          age: "",
+          gender: "",
+          medicalHistory: "",
+          medications: "",
+          lifestyleFactors: "",
+          symptoms: "",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -214,7 +213,39 @@ const InfoFormToDetectProblem = () => {
                   AI Response
                 </Typography>
                 <Typography variant="body1">
-                  {loading ? <Box sx={{maxHeight:"200px", display:"flex", alignItems:"center"}}><Typography color={"yellowgreen"}>Loading .... </Typography></Box>: response}
+                  {loading ? (
+                    <Box
+                      sx={{
+                        maxHeight: "200px",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography sx={{ lineHeight: 3 }} color={"yellowgreen"}>
+                        Loading ....{" "}
+                      </Typography>
+                    </Box>
+                  ) : (
+                    <>
+                      {response.split("\n\n").map((line, index) => (
+                        <Typography
+                          key={index}
+                          variant="body1"
+                          gutterBottom
+                          sx={{
+                            color:
+                              index === 0
+                                ? "blue" // Color for the first section
+                                : index === 1
+                                ? "green" // Color for the second section
+                                : "red", // Color for the third section
+                          }}
+                        >
+                          {line}
+                        </Typography>
+                      ))}
+                    </>
+                  )}
                 </Typography>
               </CardContent>
             </Card>

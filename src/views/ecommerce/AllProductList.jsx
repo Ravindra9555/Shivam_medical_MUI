@@ -7,6 +7,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import adminService from "../../api/adminService";
 import Swal from "sweetalert2";
 import { Visibility } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const AllProductList = () => {
   const [products, setProducts] = useState([]);
@@ -39,6 +40,7 @@ const AllProductList = () => {
           productMRP: product.mrp,
           productDiscount: product.discount,
           productPriceAfterDiscount: product.priceAfterDiscount,
+          productPrice: (product.price).toFixed(2),
           productImage: product.image,
           productQuantity: product.quantity,
           isVisible: product.isListed,
@@ -76,7 +78,7 @@ const AllProductList = () => {
       flex: 1,
     },
     {
-      field: "productPriceAfterDiscount",
+      field: "productPrice",
       headerName: "Price After Discount",
       flex: 1,
     },
@@ -140,10 +142,10 @@ const AllProductList = () => {
       ),
     },
   ];
+  const navigate= useNavigate();
  // Handlers for actions (implement your logic here)
  const handleEdit = (id) => {
-  console.log("Edit product with id:", id);
-  // Implement edit logic
+  navigate(`/admin/editproduct/${id}`);
 };
 
 const handleDelete = async(id) => {

@@ -92,7 +92,7 @@ const Cart = () => {
               )}
               <List>
                 {cart.map((item) => (
-                  <React.Fragment key={item.id}>
+                  <React.Fragment key={item._id}>
                     <ListItem
                       sx={{
                         display: "flex",
@@ -104,15 +104,15 @@ const Cart = () => {
                       }}
                     >
                       <Box>
-                        <img height={50} width={50} src={item.img} />
+                        <img height={50} width={50} src={item.image} />
                       </Box>
                       <Box>
-                        <Typography variant="h6">{item.title}</Typography>
+                        <Typography variant="h6">{item.name}</Typography>
                         <Typography variant="body2" color="red">
                           MRP : ₹ <strike>{item.mrp}</strike>
                         </Typography>
                         <Typography variant="body2" color="green">
-                          Discount Price : ₹ {item.price}
+                          Discounted Price : ₹ {item.price}
                         </Typography>
                       </Box>
                       <Box
@@ -127,7 +127,7 @@ const Cart = () => {
                           <Tooltip title="Remove one from cart ">
                             <IconButton
                               color="secondary"
-                              onClick={() => decrementQuantity(item.id)}
+                              onClick={() => decrementQuantity(item._id)}
                             >
                               <RemoveIcon />
                             </IconButton>
@@ -140,7 +140,7 @@ const Cart = () => {
                         <Tooltip title="Add one in cart ">
                           <IconButton
                             color="primary"
-                            onClick={() => incrementQuantity(item.id)}
+                            onClick={() => incrementQuantity(item._id)}
                           >
                             <AddIcon />
                           </IconButton>
@@ -148,7 +148,7 @@ const Cart = () => {
                         <Tooltip title="Remove item from cart ">
                           <IconButton
                             color="error"
-                            onClick={() => removeFromCart(item.id)}
+                            onClick={() => removeFromCart(item._id)}
                             sx={{ marginLeft: 1 }} // Adjusted spacing for consistency
                           >
                             <Delete />
@@ -165,11 +165,11 @@ const Cart = () => {
                 MRP Total : <strike> {price}</strike>
               </Typography>
               <Typography sx={{ color: "success.light" }}>
-                Discount: {price - total}
+                Discount: {(price - total).toFixed(2)}
               </Typography>
               <Typography sx={{ color: "green.light" }}>
                 {" "}
-                Subtotal: {total}
+                Subtotal: {(total).toFixed(2)}
               </Typography>
               <Box sx={{ display: "flex", justifyContent: "end" }}>
                 <Button variant="contained" color="secondary">
