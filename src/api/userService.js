@@ -7,7 +7,7 @@ const userApi = createAxiosInstance( process.env.REACT_APP_BASEURL, 'userToken')
 const userService = {
   userLogin : (data)=> userApi.post('/v1/api/users/login', data),
   resetLink :( data)=> userApi.post("/v1/api/users/resetlink", data),
- 
+  generateAiResult :(data)=> userApi.post("/v1/api/googleai/generateMedicalReport",data),
   // Add more user-specific APIs here
 };
 

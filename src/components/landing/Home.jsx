@@ -6,6 +6,7 @@ import Appointment from "./Appointment";
 import Contact from "./Contact";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
+import InfoFormToDetectProblem from "./InfoFormToDetectProblem";
 
 const Home = () => {
 
@@ -15,6 +16,7 @@ const Home = () => {
     <div style={{ paddingTop: '70px' }}> {/* Adjust padding based on navbar height */}
       <Hero />
       <About />
+      <InfoFormToDetectProblem/>
       <Appointment />
       <Contact />
       <Footer />
