@@ -15,7 +15,7 @@ function Appointment() {
   };
 
   return (
-    <Container sx={{ padding: "50px 0" }} id="appointment">
+    <Container sx={{ padding: "50px 0" }} id="appointment" >
       {/* Book an Appointment Section */}
       <Grid container spacing={4} alignItems="center" sx={{ mb: 5 }} data-aos="fade-up">
         <Grid item xs={12} md={6}>

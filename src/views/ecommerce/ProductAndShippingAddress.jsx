@@ -1,21 +1,19 @@
 import React, { useState } from "react";
+import useCartStore from "../../store/useCartStore";
 import { Box, Container, Grid } from "@mui/material";
-import ResponsiveAppBar from "../../components/landing/HomeNavbar";
+
 import ADDAddrees from "./ADDAddrees";
 import ItemInCart from "./ItemInCart";
-import Bill from "./Bill";
-
-const Cart = () => {
+const ProductAndShippingAddress = () => {
   return (
     <Box>
-      <ResponsiveAppBar />
-      <Container sx={{ marginTop: "70px" }}>
-        <Grid container spacing={2} mt={2}>
+      <Container>
+        <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <ItemInCart />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Bill/>
+            <ADDAddrees />
           </Grid>
         </Grid>
       </Container>
@@ -23,4 +21,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default ProductAndShippingAddress;
