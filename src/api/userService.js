@@ -19,6 +19,11 @@ const userService = {
       params: data,
     }),
   searchProduct: (data) => userApi.get(`/v1/api/product/search/${data}`),
+  AddAddress:(data)=> userApi.post("/v1/api/address/addAddress", data),
+  getUserAddress:(data)=> userApi.post("/v1/api/address/getAddress", data),
+  editAddress :(data)=> userApi.post("/v1/api/address/updateAddress", data),
+  deleteAddress:(data)=> userApi.post("/v1/api/address/deleteAddress", data),
+
  
 
 };

@@ -14,28 +14,26 @@ const Bill = () => {
   const cart = useCartStore((state) => state.cart);
   const total = useCartStore((state) => state.totalPrice());
   const price = useCartStore((state) => state.priceBeforeDiscount());
-   const navigate = useNavigate();
-  const handleCheckout=()=>{
+  const navigate = useNavigate();
+  const handleCheckout = () => {
     const token = localStorage.getItem("userToken");
-     if(token){
-       navigate("/user/cart")
-     }
-     else{
-       navigate("/login")
-     }
-
-  }
+    if (token) {
+      navigate("/user/cart");
+    } else {
+      navigate("/login");
+    }
+  };
   return (
     <Box sx={{ borderRadius: 2, boxShadow: 3, bgcolor: "#f4f1b9", p: 3 }}>
-      <Box sx={{ bgcolor:"white", p:3,borderRadius:2}}>
+      <Box sx={{ bgcolor: "white", p: 3, borderRadius: 2 }}>
         <Typography variant="h4"> Total Bill</Typography>
         <Divider />
 
         {cart.map((item) => (
           <Box key={item._id}>
             <Typography variant="h6">
-              {item.name} : MRP : {item.mrp} X Quantity: {item.quantity} ={" "}
-              {item.mrp * item.quantity}{" "}
+              <span className="fw-semibold">{item.name}</span> : ₹ {item.mrp} X{" "}
+              {item.quantity} ={item.mrp * item.quantity}
             </Typography>
             <Typography variant="body" color="green">
               Discounted Price : ₹ {(item.price * item.quantity).toFixed(2)}
@@ -50,7 +48,6 @@ const Bill = () => {
         <p>Payable Amount : Rs: {total.toFixed(2)}</p>
 
         <Button onClick={handleCheckout} variant="contained" color="secondary">
-          
           Checkout
         </Button>
       </Box>
