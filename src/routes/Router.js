@@ -43,6 +43,7 @@ const Cart = lazy (()=> import ("../views/ecommerce/Cart.jsx"));
  const AllProducts = lazy(()=> import ("../views/ecommerce/AllProductList.jsx"));
  const EditProduct = lazy(()=> import ("../views/ecommerce/EditProduct.jsx"));
  const ShippingCart = lazy(()=> import ("../views/ecommerce/ProductAndShippingAddress.jsx"));
+ const ProductOnWebsite= lazy(()=>import("../views/ecommerce/ProductsOnWebsite.jsx"));
 const ThemeRoutes = [
   {
     path: "/",
@@ -74,7 +75,7 @@ const ThemeRoutes = [
   },
   {
     path: "/products",
-    element: <ProductList />,
+    element: <ProductOnWebsite />,
   },
   {
     path: "/cart",
@@ -113,6 +114,7 @@ const ThemeRoutes = [
       { path: "dashboard", element: <Userdashboard /> },
       { path: "bookappointment", element: <BookAppointment /> },
       { path: "cart", element: <ShippingCart /> },
+      { path: "products", element: <ProductList /> },
       { path: "*", element: <Error /> },
     ],
   },

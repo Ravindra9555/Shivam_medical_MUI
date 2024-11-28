@@ -57,8 +57,8 @@ const statesOfIndia = [
 const ADDAddress = () => {
   const { user } = useUser();
   const [isLoading, setLoading] = useState(false);
-  const [isAddress, setAddress] = useState(true);
-  const [addressData, setAddressData] = useState({});
+  const [isAddress, setIsAddress] = useState(true);
+  const [addressData, setAddressData] = useState([]);
   const [editClicked, setClicked] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -80,26 +80,20 @@ const ADDAddress = () => {
     try {
       const response = await userService.getUserAddress({ userId: user.id });
       if (response.status === 200) {
-        setAddressData(response.data.data.shippingAddress);
-        setFormData({
-          name: response.data.data.shippingAddress.fullName,
-          email: response.data.data.shippingAddress.email,
-          phone: response.data.data.shippingAddress.phone,
-          address: response.data.data.shippingAddress.address,
-          street: response.data.data.shippingAddress.streetAddress,
-          houseNoAndLandmark: response.data.data.shippingAddress.landmarksAndApartments,
-          city: response.data.data.shippingAddress.city,
-          state: response.data.data.shippingAddress.state,
-          zip: response.data.data.shippingAddress.zipCode,
-        });
+        setAddressData(response.data.data);
+
+        setIsAddress(true);
       }
-      setAddress(true);
     } catch (error) {
       console.error("Error fetching address:", error);
-      if(error.response.statusCode ===404 && error.response.message=="No address found for this user"){
-        setAddress(false)
+      if (
+        error.response.statusCode === 404 &&
+        error.response.message == "No address found for this user"
+      ) {
+        // setAddress(false)
       }
-      setAddress(false)
+      setIsAddress(false);
+      setClicked(false);
     }
   };
 
@@ -140,6 +134,7 @@ const ADDAddress = () => {
           timer: 1500,
           showConfirmButton: false,
         });
+        fetchAddress();
       }
     } catch (error) {
       console.error("Error submitting address:", error);
@@ -152,18 +147,36 @@ const ADDAddress = () => {
     }
   };
 
-  const handleEdit = () => {
+  const handleEdit = (id) => {
+    const address = addressData.find((add) => add._id === id);
+    setFormData({
+      ...address,
+      addressId:id,
+      name: address.fullName,
+      email: address.email,
+      phone: address.phone,
+      address: address.address,
+      street: address.streetAddress,
+      houseNoAndLandmark: address.landmarksAndApartments,
+      city: address.city,
+      state: address.state,
+      zip: address.zipCode,
+      phone:address.phone
+    });
+
     setClicked(true); // Mark edit mode as true
-    setAddress(false); // Switch to the form view
+    setIsAddress(false); // Switch to the form view
   };
 
-  const EditAddress = async () => {
+  const EditAddress = async (id) => {
     if (!user?.id) {
       console.error("User not found");
       return;
     }
+   
     try {
       const finalData = {
+        addressId:formData.addressId,
         userId: user.id,
         fullName: formData.name,
         email: formData.email,
@@ -195,13 +208,16 @@ const ADDAddress = () => {
       });
     }
   };
-  const deleteAddress = async()=>{
+  const deleteAddress = async (id) => {
     if (!user?.id) {
       console.error("User not found");
       return;
     }
     try {
-      const res = await userService.deleteAddress({userId: user.id});
+      const res = await userService.deleteAddress({
+        userId: user.id,
+        addressId: id,
+      });
       if (res.status === 200) {
         Swal.fire({
           icon: "success",
@@ -219,7 +235,7 @@ const ADDAddress = () => {
         timer: 1500,
       });
     }
-  }
+  };
 
   return (
     <div>
@@ -228,28 +244,39 @@ const ADDAddress = () => {
           Shipping Details
         </Typography>
         <Divider sx={{ mb: 2 }} />
-        {isAddress  ? (
-          <Box>
-            <Typography variant="h6">
-              Full Name: {addressData.fullName}
-            </Typography>
-            <Typography> Email : {addressData.email}</Typography>
-            <Typography> Phone : {addressData.phone}</Typography>
-            <Typography variant="h6">
-              Address: {addressData.address},{" "}
-              {addressData.landmarksAndApartments}, {addressData.city},{" "}
-              {addressData.state}, {addressData.zipCode}
-            </Typography>
-            <Divider />
-            <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-              <Button variant="contained" color="primary" onClick={handleEdit}>
-                Edit Address
-              </Button>
-              <Button variant="contained"  onClick ={deleteAddress}color="error">
-                Delete Address
-              </Button>
-            </Box>
-          </Box>
+        {isAddress ? (
+          <>
+            {addressData.map((address, index) => (
+              <Box key={index}>
+                <Typography variant="h6">
+                  Full Name: {address.fullName}
+                </Typography>
+                <Typography> Email : {address.email}</Typography>
+                <Typography> Phone : {address.phone}</Typography>
+                <Typography variant="h6">
+                  Address: {address.address}, {address.landmarksAndApartments},{" "}
+                  {address.city}, {address.state}, {address.zipCode}
+                </Typography>
+                <Divider />
+                <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleEdit(address._id)}
+                  >
+                    Edit Address
+                  </Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => deleteAddress(address._id)}
+                    color="error"
+                  >
+                    Delete Address
+                  </Button>
+                </Box>
+              </Box>
+            ))}
+          </>
         ) : (
           <Box>
             <form>

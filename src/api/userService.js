@@ -19,11 +19,11 @@ const userService = {
       params: data,
     }),
   searchProduct: (data) => userApi.get(`/v1/api/product/search/${data}`),
-  AddAddress:(data)=> userApi.post("/v1/api/address/addAddress", data),
-  getUserAddress:(data)=> userApi.post("/v1/api/address/getAddress", data),
-  editAddress :(data)=> userApi.post("/v1/api/address/updateAddress", data),
-  deleteAddress:(data)=> userApi.post("/v1/api/address/deleteAddress", data),
-
+  AddAddress:(data)=> userApi.post("/v1/api/users/addAddress", data),
+  getUserAddress:(data)=> userApi.post("/v1/api/users/getAddress", data),
+  editAddress :(data)=> userApi.post("/v1/api/users/updateAddress", data),
+  deleteAddress:(data)=> userApi.post("/v1/api/users/deleteAddress", data),
+  placeorder:(data)=> userApi.post("/v1/api/order/createOrder",data),
  
 
 };

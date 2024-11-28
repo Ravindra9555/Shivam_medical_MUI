@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useCartStore from "../../store/useCartStore";
 import {
   List,
@@ -14,6 +14,10 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Delete, StrikethroughS } from "@mui/icons-material";
 import ClearIcon from "@mui/icons-material/Clear";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
+import userService from "../../api/userService";
+import Swal from "sweetalert2";
 const ItemInCart = () => {
   const cart = useCartStore((state) => state.cart);
   const incrementQuantity = useCartStore((state) => state.incrementQuantity);
@@ -22,7 +26,80 @@ const ItemInCart = () => {
   const total = useCartStore((state) => state.totalPrice());
   const price = useCartStore((state) => state.priceBeforeDiscount());
   const clearCart = useCartStore((state) => state.clearCart);
-
+  const navigate = useNavigate();
+  const { user } = useUser();
+  const location = useLocation();
+  const loginCart = location.pathname == "user/cart";
+  const [addressId, setAddressId] = useState({});
+  const handleCheckout = () => {
+    const token = localStorage.getItem("userToken");
+    if (token && user.id) {
+      navigate("/user/cart");
+    } else {
+      navigate("/login");
+    }
+  };
+  useEffect(()=>{
+    if(user?.id){
+     fetchAddress();
+    }else{
+      navigate("/login")
+    }
+  },[]);
+  const fetchAddress = async () => {
+    console.log("fetch")
+    try {
+      const res= await userService.getUserAddress({userId: user.id});
+      if(res.status == 200 ){
+        console.log(res.data.data[0])
+        setAddressId(res.data?.data[0]?._id);
+      }else{
+        navigate("/user/cart")
+      }
+      
+    } catch (error) {
+      console.error("Error fetching address:", error);
+      Swal.fire("error", error?.data?.response?.message , "Error fetching address");
+      
+    }
+  }
+  const handlePay = async() => {
+    try {
+      const itemArray =[];
+      cart.forEach((item) => {
+        itemArray.push({
+          productId: item._id,
+          quantity: item.quantity,
+        });
+      });
+       const finalData={
+        addressId: addressId,
+         userId: user.id,
+        products: itemArray,
+       }
+       const res = await userService.placeorder(finalData);
+       if(res.status === 200){
+         Swal.fire({
+           icon: "success",
+           title: "Order placed successfully",
+           text: "Your order will be delivered soon.",
+           timer: 1500,
+         });
+         clearCart();
+         navigate("/user/cart");
+       }
+      
+    } catch (error) {
+      console.error("Error placing order:", error);
+     Swal.fire({
+       icon: "error",
+       title: "Error",
+       text: error?.data?.response?.message || "Failed to place order",
+       timer: 1500,
+     })
+      
+    }
+  };
   return (
     <div>
       <Box sx={{ padding: 2, boxShadow: 2, borderRadius: 2 }}>
@@ -64,7 +141,7 @@ const ItemInCart = () => {
                     MRP : ₹ <strike>{item.mrp}</strike>
                   </Typography>
                   <Typography variant="body2" color="green">
-                    Discounted Price : ₹ {item.price}
+                    Discounted Price : ₹ {item.price.toFixed(2)}
                   </Typography>
                 </Box>
                 <Box
@@ -127,6 +204,25 @@ const ItemInCart = () => {
             </Typography>
           </>
         )}
+        <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2 }}>
+          {location.pathname === "/user/cart" && cart.length > 0 ? (
+            <Button
+              onClick={handlePay}
+              variant="contained"
+              color="primary"
+            >
+              Pay
+            </Button>
+          ) : (
+            <Button
+              onClick={handleCheckout}
+              variant="contained"
+              color="primary"
+            >
+              Proceed to checkout
+            </Button>
+          )}
+        </Box>
       </Box>
     </div>
   );

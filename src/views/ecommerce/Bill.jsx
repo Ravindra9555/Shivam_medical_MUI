@@ -24,7 +24,7 @@ const Bill = () => {
     }
   };
   return (
-    <Box sx={{ borderRadius: 2, boxShadow: 3, bgcolor: "#f4f1b9", p: 3 }}>
+    <Box sx={{ borderRadius: 2, boxShadow: 3,  }}>
       <Box sx={{ bgcolor: "white", p: 3, borderRadius: 2 }}>
         <Typography variant="h4"> Total Bill</Typography>
         <Divider />
@@ -45,11 +45,7 @@ const Bill = () => {
         <p>Total Price Before Discount : {price.toFixed(2)}</p>
         <p>Total Price After Discount : {total.toFixed(2)}</p>
         <Divider />
-        <p>Payable Amount : Rs: {total.toFixed(2)}</p>
-
-        <Button onClick={handleCheckout} variant="contained" color="secondary">
-          Checkout
-        </Button>
+        <p className="fw-semibold text-danger">Payable Amount : Rs: {total.toFixed(2)}</p>
       </Box>
     </Box>
   );

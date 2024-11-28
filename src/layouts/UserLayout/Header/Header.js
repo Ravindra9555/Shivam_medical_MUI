@@ -20,12 +20,17 @@ import {
   Divider,
   ListItemIcon,
 } from "@mui/material";
-
+import{ Badge} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { ShoppingBagOutlined } from "@mui/icons-material";
+import useCartStore from "../../../store/useCartStore";
 
 const Header = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const cart = useCartStore((state) => state.cart);
 
+  // Calculate the total number of items in the cart
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -159,9 +164,24 @@ const Header = (props) => {
           color="inherit"
           aria-controls="notification-menu"
           aria-haspopup="true"
+          onClick={()=>navigate("/user/cart")}
+        >
+          <Badge badgeContent={totalItems} color="error">
+
+          <ShoppingBagOutlined width="20" height="20" />
+          </Badge>
+        </IconButton>
+        <IconButton
+          aria-label="menu"
+          color="inherit"
+          aria-controls="notification-menu"
+          aria-haspopup="true"
           onClick={handleClick}
         >
+          <Badge badgeContent={2} color="error">
+
           <NotificationsNoneOutlinedIcon width="20" height="20" />
+          </Badge>
         </IconButton>
         <Menu
           id="notification-menu"

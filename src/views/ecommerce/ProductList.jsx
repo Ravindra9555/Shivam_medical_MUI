@@ -80,8 +80,8 @@ const ProductList = () => {
  
   return (
     <div>
-      <ResponsiveAppBar />
-      <Box sx={{ paddingTop: "70px" }}>
+      {/* <ResponsiveAppBar /> */}
+      <Box >
         <Container>
           <Grid container spacing={3} justifyContent="center" p={2}>
             <Grid item xs={12} sm={12} md={12}>

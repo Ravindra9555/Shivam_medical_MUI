@@ -17,6 +17,11 @@ const Menuitems = [
     icon: AddToPhotosOutlinedIcon,
     href: "/user/cart",
   },
+  {
+    title: "Buy Products",
+    icon: AddToPhotosOutlinedIcon,
+    href: "/user/products",
+  },
 
 ];
 
