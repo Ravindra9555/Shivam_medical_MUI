@@ -22,6 +22,11 @@ const Menuitems = [
     icon: AddToPhotosOutlinedIcon,
     href: "/user/products",
   },
+  {
+    title: "Orders",
+    icon: AddToPhotosOutlinedIcon,
+    href: "/user/orders",
+  },
 
 ];
 

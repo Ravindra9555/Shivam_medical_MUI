@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
         variant="outlined"
         sx={{
           p: 0,
-          // width: "100%",
+          width: "100%",
         }}
       >
         <img src={product.image} alt="img" width="100%"  style={{minHeight:"200px", maxHeight:"200px"}} />
@@ -70,7 +70,7 @@ const ProductCard = ({ product }) => {
             >
               {product.mrp}
             </Box>{" "}
-            {product.price}
+            {product.price.toFixed(2)}
           </Typography>
           <Typography sx={{ color: "green" }} variant="h5">
             {product.discount}% Off

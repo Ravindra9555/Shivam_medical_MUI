@@ -44,6 +44,11 @@ const Menuitems = [
     icon: AlbumOutlinedIcon,
     href: "/admin/allproducts",
   },
+  {
+    title: "All Orders",
+    icon: AlbumOutlinedIcon,
+    href: "/admin/orders",
+  },
  
 ];
 
