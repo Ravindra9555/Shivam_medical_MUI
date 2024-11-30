@@ -66,6 +66,8 @@ const InfoFormToDetectProblem = () => {
 
   return (
     <Container sx={{ mt: 4, mb: 4, p: 3 }}>
+      <Box sx={{bgcolor:"white", p:2, borderRadius:2}} data-aos="fade-up">
+
       <Typography variant="h4" gutterBottom>
         Detect Problem & Suggest Medicine
       </Typography>
@@ -76,10 +78,10 @@ const InfoFormToDetectProblem = () => {
       <Grid
         container
         spacing={2}
-        sx={{ borderRadius: 2, boxShadow: 3, mt: 3, p: 2 }}
+      
       >
-        <Grid item xs={12} md={6}>
-          <Box component="form" onSubmit={handleSubmit}>
+        <Grid item xs={12} md={6} >
+          <Box component="form" onSubmit={handleSubmit} sx={{p:2, bgcolor:"white", borderRadius:2}}>
             <Grid container spacing={3}>
               <Grid item xs={6} sm={6}>
                 <TextField
@@ -252,6 +254,7 @@ const InfoFormToDetectProblem = () => {
           </Box>
         </Grid>
       </Grid>
+      </Box>
     </Container>
   );
 };

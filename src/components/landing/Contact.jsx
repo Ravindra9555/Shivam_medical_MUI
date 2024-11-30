@@ -7,6 +7,7 @@ import {
   Card,
   CardContent,
   Typography,
+  Box,
 } from "@mui/material";
 import {
   BsFillTelephoneFill,
@@ -64,9 +65,9 @@ const Contact = () => {
   };
 
   return (
-    <Container sx={{ py: 5 }} id="contactus">
+    <Container sx={{ py: 5 }} id="contactus" data-aos="fade-up" data-aos-duration="1000" >
       {/* Contact Form Section */}
-      <Grid container spacing={4} alignItems="center">
+      <Grid container spacing={4} alignItems="center" sx={{bgcolor:"white" ,p:2 ,boxShadow:2, borderRadius:2}}>
         <Grid item xs={12} md={6}>
           <Typography variant="h4" gutterBottom>
             Get in Touch
@@ -79,8 +80,8 @@ const Contact = () => {
             <Grid
               container
               spacing={2}
-              sx={{ p: 2, borderRadius: 2, mt: 2, boxShadow:2 }}
-              bgcolor={"grey.50"}
+              sx={{ p: 2, borderRadius: 2, mt: 2 }}
+              // bgcolor={"white"}
             
             >
               <Grid item xs={6}>
@@ -151,7 +152,7 @@ const Contact = () => {
 
         {/* Map and Contact Info Section */}
         <Grid item xs={12} md={6}>
-          <Card>
+          <Box sx={{bgcolor:"white" , borderRadius:2, }}>
             <CardContent>
               <Typography variant="h6">
                 <BsFillGeoAltFill /> Address
@@ -169,12 +170,12 @@ const Contact = () => {
                 ></iframe>
               </div>
             </CardContent>
-          </Card>
+          </Box>
         </Grid>
       </Grid>
 
       {/* Contact Information Section */}
-      <Grid container spacing={4} sx={{ mt: 5 }}>
+      <Grid container  sx={{ mt: 5 }}>
         <Grid item xs={12}>
           <Typography variant="h5" gutterBottom>
             Contact Information

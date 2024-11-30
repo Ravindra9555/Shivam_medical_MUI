@@ -15,9 +15,9 @@ function Appointment() {
   };
 
   return (
-    <Container sx={{ padding: "50px 0" }} id="appointment" >
+    <Container sx={{ padding: "50px 0" }} id="appointment"  data-aos="fade-up" data-aos-duration="1000">
       {/* Book an Appointment Section */}
-      <Grid container spacing={4} alignItems="center" sx={{ mb: 5 }} data-aos="fade-up">
+      <Grid container spacing={4} alignItems="center" sx={{ mb: 5 }}>
         <Grid item xs={12} md={6}>
           <Typography variant="h5" gutterBottom>
             <CalendarTodayIcon fontSize="large" color="primary" sx={{ verticalAlign: "middle", mr: 1 }} />

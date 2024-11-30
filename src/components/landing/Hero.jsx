@@ -5,10 +5,25 @@ import { GiHospitalCross } from "react-icons/gi";
 import { GrUserExpert } from "react-icons/gr";
 import { FaPersonBreastfeeding } from "react-icons/fa6";
 import hero from "../../assets/hero.svg";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Hero() {
+  const location = useLocation();
+  const navigate = useNavigate();
+    // Function to navigate to the home page with a section
+    const handleNavClick = (sectionId) => {
+      if (location.pathname !== "/") {
+        navigate(`/#${sectionId}`);
+      } else {
+        document
+          .getElementById(sectionId)
+          ?.scrollIntoView({ behavior: "smooth" });
+      }
+     
+    };
+  
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }} id="home">
+    <Container maxWidth="lg" sx={{ mt: 4, mb:3 }} id="home"data-aos="fade-up" data-aos-duration="1000">
       <Grid container alignItems="center" spacing={4}>
         {/* Hero Text Section */}
         <Grid item xs={12} md={6} data-aos="fade-right">
@@ -23,15 +38,15 @@ function Hero() {
           </Typography>
           <Box>
             <Button
-              href="#appointment"
+              
+              onClick={()=>handleNavClick("appointment")}
               variant="contained"
               color="primary"
               sx={{ mr: 2 }}
             >
               Book an Appointment
             </Button>
-            <Button
-              href="#contact"
+            <Button onClick={()=>handleNavClick("contactus")}
               variant="outlined"
               color="primary"
             >
@@ -56,10 +71,10 @@ function Hero() {
         <Grid item xs={12} md={4}>
           <Box
             sx={{
-              backgroundColor: "grey.50",
-              p: 3,
+              backgroundColor: "white",
+              p: 2,
               borderRadius: 2,
-              boxShadow: 3,
+              boxShadow: 2,
               textAlign: "center",
             }}
           >
@@ -79,10 +94,10 @@ function Hero() {
         <Grid item xs={12} md={4}>
           <Box
             sx={{
-              backgroundColor: "grey.50",
-              p: 3,
+              backgroundColor: "white",
+              p: 2,
               borderRadius: 2,
-              boxShadow: 3,
+              boxShadow: 2,
               textAlign: "center",
             }}
           >
@@ -102,10 +117,10 @@ function Hero() {
         <Grid item xs={12} md={4}>
           <Box
             sx={{
-              backgroundColor: "grey.50",
-              p: 3,
+              backgroundColor: "white",
+              p: 2,
               borderRadius: 2,
-              boxShadow: 3,
+              boxShadow: 2,
               textAlign: "center",
             }}
           >

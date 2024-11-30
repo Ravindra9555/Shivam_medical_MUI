@@ -2,12 +2,25 @@
 import React from 'react';
 import { Box, Container, Grid, Typography, Avatar, Link, List, ListItem, ListItemText, IconButton } from '@mui/material';
 import { BsFacebook, BsTwitter, BsInstagram, BsLinkedin, BsGithub, BsPersonCircle } from 'react-icons/bs';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Footer = () => {
+   const navigate= useNavigate();
+   const location = useLocation();
+    // Function to navigate to the home page with a section
+    const handleNavClick = (sectionId) => {
+      if (location.pathname !== "/") {
+        navigate(`/#${sectionId}`);
+      } else {
+        document
+          .getElementById(sectionId)
+          ?.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   return (
     <Box component="footer" sx={{ bgcolor: '#f8f9fa', py: 5 }}>
       <Container>
-        <Grid container spacing={4} justifyContent="center" data-aos="fade-up">
+        <Grid container spacing={4} justifyContent="center" data-aos="fade-up" data-aos-duration="1000">
           {/* Developer Section */}
           <Grid item xs={12} sm={6} md={4}>
             <Typography variant="h6" gutterBottom>Developer</Typography>
@@ -47,7 +60,7 @@ const Footer = () => {
             <List>
               {['Home', 'About Us', 'Services', 'Appointment', 'Contact Us'].map((text) => (
                 <ListItem key={text} disablePadding>
-                  <ListItemText primary={<Link href={`#${text.toLowerCase().replace(' ', '')}`} color="inherit" underline="hover">{text}</Link>} />
+                  <ListItemText primary={<Link  onClick={()=>handleNavClick(`${text.toLowerCase().replace(' ', '')}`)} color="inherit" underline="hover">{text}</Link>} />
                 </ListItem>
               ))}
             </List>

@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <>
     <HomeNavbar  />
-    <div style={{ paddingTop: '70px' }}> {/* Adjust padding based on navbar height */}
+    <div style={{ paddingTop: '70px', backgroundColor:"#f7fdfc" }}> {/* Adjust padding based on navbar height */}
       <Hero />
       <About />
       <InfoFormToDetectProblem/>

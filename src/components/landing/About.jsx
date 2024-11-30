@@ -59,73 +59,10 @@ const About = () => {
   ];
 
   return (
-    <Container id="about"  sx={{mt:4}}>
+    
+    <Container id="about"  sx={{mt:4}} data-aos="fade-up" data-aos-duration="1000">
       <Grid container spacing={4} justifyContent="center">
-        <Grid item xs={12}>
-          <Typography variant="h4" component="h2" gutterBottom>
-            About Shivam Medical
-          </Typography>
-          <Typography>
-            Founded with a mission to provide exceptional healthcare, Shivam
-            Medical has been serving the community for over [X] years. Our
-            commitment to excellence in patient care and medical innovation sets
-            us apart.
-          </Typography>
-        </Grid>
-        {/* Mission and Vision Section */}
-
-        <Grid
-          container // Added container prop
-          xs={12}
-          mt={4}
-          spacing={2} // Optional: adds spacing between grid items
-          sx={{ px: 2 }} // Optional: horizontal padding for left and right margins
-        >
-          <Grid item xs={12} md={6} mb={1}>
-            <Box
-              sx={{
-                backgroundColor: "grey.50",
-                p: 3,
-                borderRadius: 2,
-                boxShadow: 3,
-                textAlign: "center",
-              }}
-            >
-              <Box display="flex" alignItems="center" gap={1}>
-                <HeartIcon color="primary" fontSize="large" />
-                <Typography variant="h5">Our Mission</Typography>
-              </Box>
-              <Typography>
-                To deliver compassionate, high-quality medical care with a focus
-                on patient well-being and advanced treatments.
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Box
-   
-              sx={{
-                backgroundColor: "grey.50",
-                p: 3,
-                borderRadius: 2,
-             
-                boxShadow: 3,
-                textAlign: "center",
-              }}
-            >
-              <Box display="flex" alignItems="center" gap={1}>
-                <BullseyeIcon color="primary" fontSize="large" />
-                <Typography variant="h5">Our Vision</Typography>
-              </Box>
-              <Typography>
-                To be a leader in healthcare excellence, continuously improving
-                to meet the evolving needs of our patients.
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-
+      
         {/* Leadership Team Section */}
         <Grid item xs={12}>
           <Typography variant="h5" component="h3" gutterBottom>
@@ -135,7 +72,7 @@ const About = () => {
         <Grid container item xs={12} spacing={4}>
           {leadershipTeam.map((leader, index) => (
             <Grid item xs={12} md={6} lg={4} key={index}>
-              <Card sx={{ boxShadow: 3 }}>
+              <Card sx={{bgcolor:"white"}}>
                 <Box display="flex" justifyContent="center" mt={2}>
                   <Avatar
                     src={leader.image}
@@ -195,16 +132,16 @@ const About = () => {
             healthcare needs, including:
           </Typography>
         </Grid>
-        <Grid container item xs={12} spacing={4}>
+        <Grid container item xs={12} >
           {generalServices.map((service, index) => (
-            <Grid item xs={12} md={6} key={index}>
-              <Card sx={{ boxShadow: 3 }}>
-                <CardContent>
+            <Grid item xs={12} md={6} key={index} sx={{display:"flex", alignItems:"stretch" ,bgcolor:"white", p:2, borderRadius:2}} >
+             
+                <Box >
                   <Box mb={2} display={"flex"} gap={1} alignItems={"center"}>{service.icon} <Typography variant="h5">{service.title}</Typography> </Box>
                   
                   <Typography>{service.description}</Typography>
-                </CardContent>
-              </Card>
+                </Box>
+
             </Grid>
           ))}
         </Grid>
