@@ -2,6 +2,7 @@
   "name": "shivam_medical",
   "version": "0.1.0",
   "private": true,
+  "proxy":"http://13.232.101.168:8081",
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",
     "@emotion/react": "^11.13.5",
