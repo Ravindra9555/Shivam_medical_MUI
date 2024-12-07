@@ -4,7 +4,7 @@ import App from "./App";
 import "./App.css"
 import { HashRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-import Spinner from "./views/Spinner/Spinner";
+import Spinner from "../src/components/Spinner/Spinner.js";
 
 import AOS from "aos";
 import "aos/dist/aos.css";

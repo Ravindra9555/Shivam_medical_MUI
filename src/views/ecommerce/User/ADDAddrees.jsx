@@ -11,8 +11,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import userService from "../../api/userService";
-import { useUser } from "../../context/UserContext";
+import userService from "../../../api/userService";
+import { useUser } from "../../../context/UserContext";
 import Swal from "sweetalert2";
 
 const statesOfIndia = [

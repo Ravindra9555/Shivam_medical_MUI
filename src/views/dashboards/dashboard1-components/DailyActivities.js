@@ -20,7 +20,10 @@ import TimelineDot from "@mui/lab/TimelineDot";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 
 const options = ["Action", "Another Action", "Something else here"];
-
+const name ={
+  cardName:"Order Summary",
+  cardSubtitle:"Your recent activity",
+}
 const activities = [
   {
     time: "09.50",
@@ -86,7 +89,7 @@ const DailyActivities = () => {
               }}
               gutterBottom
             >
-              Daily Activities
+             {name.cardName}
             </Typography>
             <Typography
               color="textSecondary"
@@ -96,7 +99,7 @@ const DailyActivities = () => {
                 fontSize: "13px",
               }}
             >
-              Overview of Years
+             {name.cardSubtitle}
             </Typography>
           </Box>
           <Box

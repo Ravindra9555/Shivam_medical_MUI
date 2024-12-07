@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Loader from "../../loader/Loader";
+import Loader from "../../components/loader/Loader";
 import {
   Container,
   Box,

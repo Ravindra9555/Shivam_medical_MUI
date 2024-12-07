@@ -3,7 +3,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { useAdmin } from "../../../context/AdminContext";
+import { useAdmin } from "../../context/AdminContext";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button, Typography, Box, Chip } from "@mui/material";
 

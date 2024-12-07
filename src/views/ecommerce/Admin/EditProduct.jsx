@@ -10,17 +10,15 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
-import adminService from "../../api/adminService";
+import adminService from "../../../api/adminService";
 import Swal from "sweetalert2";
-import Spinner from "../Spinner/Spinner";
-
+import Spinner from "../../../components/Spinner/Spinner";
+import { useNavigate, useParams } from "react-router-dom";
 const medicineTypes = [
   "Tablet",
   "Capsule",
@@ -31,7 +29,8 @@ const medicineTypes = [
   "Medical equipment",
 ];
 const categories = ["Allopathy", "Unani", "Ayurveda", "Homeopathy", "Herbal"];
-const AddProduct = () => {
+const EditProduct = () => {
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     productName: "",
     productDescription: "",
@@ -42,9 +41,48 @@ const AddProduct = () => {
     productQuantity: "",
     productCategory: "",
     productType: "",
+    productId:""
   });
   const [loading, setLoading] = useState(false);
+  const[imgurl, setImgUrl] = useState("https://via.placeholder.com/140");
 
+  useEffect(() => {
+    if (id) {
+      fetchProduct(id);
+    }
+  }, [id]);
+
+  const fetchProduct = async (productId) => {
+    try {
+      const response = await adminService.getProductbyId(productId);
+      if (response.status === 200) {
+        const product = response.data.data; // Assuming it's a single object
+  
+        setFormData({
+          productName: product.name,
+          productDescription: product.description,
+          productMRP: product.mrp,
+          productDiscount: product.discount,
+          productPriceAfterDiscount: product.priceAfterDiscount,
+          productQuantity: product.quantity,
+          productCategory: product.category,
+          productType: product.type,
+          productId: product._id,
+        });
+        setImgUrl(product.image);
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.response?.data?.message || "Failed to fetch product.",
+      });
+    }
+  };
+  
+
+ 
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
 
@@ -60,9 +98,9 @@ const AddProduct = () => {
   const getImageUrl = () => {
     return formData.productImage
       ? URL.createObjectURL(formData.productImage)
-      : "https://via.placeholder.com/140";
+      : imgurl;
   };
-
+ const navigate= useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -86,9 +124,10 @@ const AddProduct = () => {
       finalData.append("category", formData.productCategory);
       finalData.append("type", formData.productType);
       finalData.append("image", formData.productImage);
+      finalData.append("productId", formData.productId);
       // Send the data to the server
-      const res = await adminService.addproduct(finalData);
-      if (res.status == 201) {
+      const res = await adminService.updateProduct(finalData);
+      if (res.status == 200) {
         Swal.fire({
           icon: "success",
           title: "Success",
@@ -109,6 +148,7 @@ const AddProduct = () => {
           productType: "",
         });
       }
+      navigate("/admin/allproducts")
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -325,4 +365,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

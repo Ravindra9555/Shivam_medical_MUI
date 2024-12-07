@@ -9,7 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import useCartStore from "../../store/useCartStore";
- import Spinner  from "../Spinner/Spinner"
+ import Spinner  from "../../components/Spinner/Spinner"
 const ProductCard = ({ product }) => {
 
    const addToCart = useCartStore((state) => state.addToCart);

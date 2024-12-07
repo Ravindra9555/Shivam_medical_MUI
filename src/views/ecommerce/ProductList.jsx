@@ -1,11 +1,8 @@
 
 import React, { useState, useEffect } from "react";
 import { Box, Container, Grid } from "@mui/material";
-import ResponsiveAppBar from "../../components/landing/HomeNavbar";
 import ProductSearchAndFilter from "./ProductSearchAndFilter";
-import Cart from "./Cart";
 import ProductCard from "./ProductCard";
-import axios from "axios";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 import userService from "../../api/userService";

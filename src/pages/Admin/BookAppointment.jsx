@@ -12,7 +12,7 @@ import {
 import dayjs from "dayjs";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useUser } from "../../../context/UserContext";
+import { useUser } from "../../context/UserContext";
 
 const BookAppointment = () => {
   const { user } = useUser();

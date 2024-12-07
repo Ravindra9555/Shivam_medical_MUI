@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import {
   Grid,
   Select,
@@ -121,7 +121,7 @@ const ProductSearchAndFilter = ({ onSearch, onFilter, listAll }) => {
         </Grid>
 
         {/* Apply Filter Button */}
-        <Grid item xs={12} sm={6} md={3} display={"flex"} >
+        <Grid item xs={12} sm={6} md={3} display={"flex"}>
           <Button
             variant="contained"
             fullWidth
@@ -134,18 +134,18 @@ const ProductSearchAndFilter = ({ onSearch, onFilter, listAll }) => {
           <Button
             variant="contained"
             fullWidth
-            sx={{ml:2}}
+            sx={{ ml: 2 }}
             color="error"
             onClick={() => {
               setSelectedMedicineType("");
               setSelectedCategory("");
               setSearchTerm("");
               listAll();
-               // Trigger search with empty value to clear search results and filters
+              // Trigger search with empty value to clear search results and filters
             }}
-            >
+          >
             Clear Filter
-            </Button>
+          </Button>
         </Grid>
       </Grid>
     </Box>

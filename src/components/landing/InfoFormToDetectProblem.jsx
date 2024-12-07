@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import userService from "../../api/userService";
 import Swal from "sweetalert2";
-import Spinner from "../../views/Spinner/Spinner.js";
+import Spinner from "../Spinner/Spinner.js";
 const InfoFormToDetectProblem = () => {
   const [formData, setFormData] = React.useState({
     age: "",

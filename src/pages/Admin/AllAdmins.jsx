@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import Swal from "sweetalert2";
-import { useAdmin } from "../../../context/AdminContext";
+import { useAdmin } from "../../context/AdminContext";
 // import {Button }from "@mui/material";
 // import Modal from "react-bootstrap/Modal";
 // import { Form } from "react-bootstrap";

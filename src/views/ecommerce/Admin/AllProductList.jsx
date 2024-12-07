@@ -4,7 +4,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import adminService from "../../api/adminService";
+import adminService from "../../../api/adminService";
 import Swal from "sweetalert2";
 import { Visibility } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";

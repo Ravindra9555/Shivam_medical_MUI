@@ -1,5 +1,5 @@
 import React from "react";
-import { useAdmin } from "../../../context/AdminContext";
+import { useAdmin } from "../../context/AdminContext";
 const AdminProfile = () => {
   const { admin } = useAdmin();
   console.log(admin);

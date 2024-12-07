@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import useCartStore from "../../store/useCartStore";
+import useCartStore from "../../../store/useCartStore";
 import {
   List,
   ListItem,
@@ -15,8 +15,8 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { Delete, StrikethroughS } from "@mui/icons-material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useUser } from "../../context/UserContext";
-import userService from "../../api/userService";
+import { useUser } from "../../../context/UserContext";
+import userService from "../../../api/userService";
 import Swal from "sweetalert2";
 const ItemInCart = () => {
   const cart = useCartStore((state) => state.cart);

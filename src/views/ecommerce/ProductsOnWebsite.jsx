@@ -8,7 +8,6 @@ const ProductsOnWebsite = () => {
     <div>
       <ResponsiveAppBar/>
       <Box sx={{mt:"70px"}}>
-
       <ProductList/>
       </Box>
     </div>

@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 import Swal from "sweetalert2";
-import { useUser } from "../../../context/UserContext";
+import { useUser } from "../../context/UserContext";
 
 // This component displays all appointments for the logged-in user
 const Appointments = () => {
