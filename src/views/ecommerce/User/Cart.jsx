@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Container, Grid } from "@mui/material";
 import ResponsiveAppBar from "../../../components/landing/HomeNavbar";
-import ADDAddrees from "./ADDAddrees";
 import ItemInCart from "./ItemInCart";
 import Bill from "./Bill";
 

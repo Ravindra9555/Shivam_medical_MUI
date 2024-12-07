@@ -41,70 +41,7 @@ const Orders = () => {
     }
   };
 
-  const dummyData = [
-    {
-      id: 1,
-      orderNo: "1234567890",
-      customerName: "John Doe",
-      totalAmount: 1000,
-      status: "In-transit",
-      date: "2023-01-01",
-      img: "https://via.placeholder.com/100",
-      products: [
-        {
-          id: 1,
-          productId: 1,
-          productName: "Product 1",
-          quantity: 2,
-          price: 500,
-          total: 1000,
-        },
-        {
-          id: 2,
-          productId: 2,
-          productName: "Product 2",
-          quantity: 3,
-          price: 700,
-          total: 2100,
-        },
-        {
-          id: 3,
-          productId: 3,
-          productName: "Product 3",
-          quantity: 1,
-          price: 1000,
-          total: 1000,
-        },
-      ],
-    },
-    {
-      id: 2,
-      orderNo: "1234567890",
-      customerName: "John Doe",
-      totalAmount: 1000,
-      status: "In-transit",
-      date: "2023-01-01",
-      img: "https://via.placeholder.com/100",
-      products: [
-        {
-          id: 1,
-          productId: 1,
-          productName: "Product 1",
-          quantity: 2,
-          price: 500,
-          total: 1000,
-        },
-        {
-          id: 2,
-          productId: 2,
-          productName: "Product 2",
-          quantity: 3,
-          price: 700,
-          total: 2100,
-        },
-      ],
-    },
-  ];
+
 
   return (
     <Container>

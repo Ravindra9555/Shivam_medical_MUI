@@ -18,6 +18,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useUser } from "../../../context/UserContext";
 import userService from "../../../api/userService";
 import Swal from "sweetalert2";
+import axios from "axios";
 const ItemInCart = () => {
   const cart = useCartStore((state) => state.cart);
   const incrementQuantity = useCartStore((state) => state.incrementQuantity);
@@ -31,73 +32,100 @@ const ItemInCart = () => {
   const location = useLocation();
   const loginCart = location.pathname == "user/cart";
   const [addressId, setAddressId] = useState({});
+
   const handleCheckout = () => {
     const token = localStorage.getItem("userToken");
+    console.log("clicked");
     if (token && user.id) {
       navigate("/user/cart");
     } else {
       navigate("/login");
     }
   };
-  useEffect(()=>{
-    if(user?.id){
-     fetchAddress();
-    }else{
-      navigate("/login")
+
+  useEffect(() => {
+    if (user?.id) {
+      fetchAddress();
     }
-  },[]);
+  }, []);
+
   const fetchAddress = async () => {
-    console.log("fetch")
+    // console.log("fetch")
     try {
-      const res= await userService.getUserAddress({userId: user.id});
-      if(res.status == 200 ){
-        console.log(res.data.data[0])
+      const res = await userService.getUserAddress({ userId: user.id });
+      if (res.status == 200) {
+        console.log(res.data.data[0]);
         setAddressId(res.data?.data[0]?._id);
-      }else{
-        navigate("/user/cart")
+      } else {
+        navigate("/user/cart");
       }
-      
     } catch (error) {
       console.error("Error fetching address:", error);
-      Swal.fire("error", error?.data?.response?.message , "Error fetching address");
-      
+      Swal.fire(
+        "error",
+        error?.data?.response?.message,
+        "Error fetching address"
+      );
     }
-  }
-  const handlePay = async() => {
+  };
+
+  const handlePay = async () => {
     try {
-      const itemArray =[];
+      const itemArray = [];
       cart.forEach((item) => {
         itemArray.push({
           productId: item._id,
           quantity: item.quantity,
         });
       });
-       const finalData={
+      const finalData = {
         addressId: addressId,
-         userId: user.id,
+        userId: user.id,
         products: itemArray,
-       }
-       const res = await userService.placeorder(finalData);
-       if(res.status === 200){
-         Swal.fire({
-           icon: "success",
-           title: "Order placed successfully",
-           text: "Your order will be delivered soon.",
-           timer: 1500,
-         });
-         clearCart();
-         navigate("/user/cart");
-       }
-      
+      };
+      const res = await userService.placeorder(finalData);
+      if (res.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Order placed successfully",
+          text: "Your order will be delivered soon.",
+          timer: 1500,
+        });
+        clearCart();
+        navigate("/user/cart");
+      }
+      const options = {
+        key: process.env.REACT_APP_RAZORPAY_KEYID, // Replace with your Razorpay Key ID
+        amount: res.data.data.totalPrice.toFixed(2)*100, // Amount in subunits
+        currency: "INR",
+        name: "SHIVAM MEDICAL STORE",
+        description: "Order Payment",
+        image: "https://avatars.githubusercontent.com/u/69795113?v=4", // Your logo
+        order_id: res.data.orderId, // Order ID generated from backend
+        callback_url: `http://127.0.0.1:8081/v1/api/payment/:${res.data.data._id}`,
+        prefill: {
+          name: user.name,
+          email: user.email,
+          contact: user.phone,
+        },
+        notes: {
+          address: "Delivery Address",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+      const razor = new window.Razorpay(options);
+
+      razor.open();
     } catch (error) {
       console.error("Error placing order:", error);
-     Swal.fire({
-       icon: "error",
-       title: "Error",
-       text: error?.data?.response?.message || "Failed to place order",
-       timer: 1500,
-     })
-      
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error?.data?.response?.message || "Failed to place order",
+        timer: 1500,
+      });
     }
   };
   return (
@@ -206,14 +234,13 @@ const ItemInCart = () => {
         )}
         <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 2 }}>
           {location.pathname === "/user/cart" && cart.length > 0 ? (
-            <Button
-              onClick={handlePay}
-              variant="contained"
-              color="primary"
-            >
+            <Button onClick={handlePay} variant="contained" color="primary">
               Pay
             </Button>
           ) : (
+            <></>
+          )}
+          {cart.length > 0 && location.pathname === "/cart" && (
             <Button
               onClick={handleCheckout}
               variant="contained"

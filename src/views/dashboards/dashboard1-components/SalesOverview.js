@@ -4,7 +4,8 @@ import Chart from 'react-apexcharts';
 
 
 
-const SalesOverview = () => {
+const SalesOverview = ({data}) => {
+   console.log({data})
   const optionssalesoverview = {
     grid: {
       show: true,
@@ -52,20 +53,21 @@ const SalesOverview = () => {
     },
     xaxis: {
       type: "category",
-      categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "July",
-        "Aug",
-        "Sept",
-        "Oct",
-        "Nov",
-        "Dec",
-      ],
+      categories: data.date,
+      // categories: [
+      //   "Jan",
+      //   "Feb",
+      //   "Mar",
+      //   "Apr",
+      //   "May",
+      //   "Jun",
+      //   "July",
+      //   "Aug",
+      //   "Sept",
+      //   "Oct",
+      //   "Nov",
+      //   "Dec",
+      // ],
       labels: {
         style: {
           cssClass: "grey--text lighten-2--text fill-color",
@@ -74,9 +76,9 @@ const SalesOverview = () => {
     },
     yaxis: {
       show: true,
-      min: 100,
-      max: 400,
-      tickAmount: 3,
+      min: Math.min(...data.price) - 50, // Adjust based on price range
+      max: Math.max(...data.price) + 50,
+      tickAmount: 5,
       labels: {
         style: {
           cssClass: "grey--text lighten-2--text fill-color",
@@ -93,15 +95,17 @@ const SalesOverview = () => {
       theme: "dark",
     },
   };
+
   const seriessalesoverview = [
     {
-      name: "Ample Admin",
-      data: [355, 390, 300, 350, 390, 180, 355, 390, 300, 350, 390, 180],
+      name: "order",
+      data:data.price,
+      // data: [355, 390, 300, 350, 390, 180, 355, 390, 300, 350, 390, 180],
     },
-    {
-      name: "Pixel Admin",
-      data: [280, 250, 325, 215, 250, 310, 280, 250, 325, 215, 250, 310],
-    },
+    // {
+    //   name: "Pixel Admin",
+    //   data: [280, 250, 325, 215, 250, 310, 280, 250, 325, 215, 250, 310],
+    // },
   ];
 
 
@@ -137,7 +141,7 @@ const SalesOverview = () => {
               }}
               gutterBottom
             >
-              Sales Overview
+              Order Overview
             </Typography>
           </Box>
           <Box
@@ -171,10 +175,10 @@ const SalesOverview = () => {
                   color: "secondary.main",
                 }}
               >
-                Ample
+                Products 
               </Typography>
             </Box>
-            <Box
+            {/* <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
@@ -198,7 +202,7 @@ const SalesOverview = () => {
               >
                 Pixel Admin
               </Typography>
-            </Box>
+            </Box> */}
           </Box>
         </Box>
         <Box
@@ -210,7 +214,7 @@ const SalesOverview = () => {
             options={optionssalesoverview}
             series={seriessalesoverview}
             type="bar"
-            height="295px"
+            height="290px"
           />
         </Box>
       </CardContent>

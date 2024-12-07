@@ -1,6 +1,8 @@
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import AddToPhotosOutlinedIcon from '@mui/icons-material/AddToPhotosOutlined';
-
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import FeaturedPlayListOutlinedIcon from '@mui/icons-material/FeaturedPlayListOutlined';
 const Menuitems = [
   {
     title: "Dashboard",
@@ -9,12 +11,12 @@ const Menuitems = [
   },
   {
     title: "Appointments",
-    icon: AddToPhotosOutlinedIcon,
+    icon: CalendarMonthIcon,
     href: "/user/bookappointment",
   },
   {
     title: "Cart",
-    icon: AddToPhotosOutlinedIcon,
+    icon: AddShoppingCartIcon,
     href: "/user/cart",
   },
   {
@@ -24,7 +26,7 @@ const Menuitems = [
   },
   {
     title: "Orders",
-    icon: AddToPhotosOutlinedIcon,
+    icon: FeaturedPlayListOutlinedIcon,
     href: "/user/orders",
   },
 

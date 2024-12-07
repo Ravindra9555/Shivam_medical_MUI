@@ -12,13 +12,12 @@ import Select from "@mui/material/Select";
 import Appointments from "./Appointments";
 const BookAppointment = () => {
   const { user } = useUser();
-
   const [doctors, setDoctors] = useState([]);
   const [appointmentData, setAppointmentData] = useState({
     doctorId: "",
     patientId: user.id,
-    date: dayjs(),
-    time: dayjs(),
+    date: dayjs(new Date()).format("YYYY-MM-DD"),
+    time: dayjs(new Date()).format("HH:mm:ss"),
     comments: "",
   });
 

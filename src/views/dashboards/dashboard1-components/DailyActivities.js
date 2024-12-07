@@ -52,7 +52,7 @@ const activities = [
   },
 ];
 
-const DailyActivities = () => {
+const DailyActivities = ({data}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -148,12 +148,12 @@ const DailyActivities = () => {
             p: 0,
           }}
         >
-          {activities.map((activity) => (
+          {data.map((activity) => (
             <TimelineItem key={activity.time}>
               <TimelineOppositeContent
                 sx={{
                   fontSize: "12px",
-                  fontWeight: "700",
+                  fontWeight: "600",
                   flex: "0",
                 }}
               >
@@ -163,7 +163,7 @@ const DailyActivities = () => {
                 <TimelineDot
                   variant="outlined"
                   sx={{
-                    borderColor: activity.color,
+                    borderColor: "green",
                   }}
                 />
                 <TimelineConnector />
