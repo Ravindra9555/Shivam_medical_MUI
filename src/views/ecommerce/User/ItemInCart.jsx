@@ -71,38 +71,65 @@ const ItemInCart = () => {
 
   const handlePay = async () => {
     try {
-      const itemArray = [];
-      cart.forEach((item) => {
-        itemArray.push({
-          productId: item._id,
-          quantity: item.quantity,
-        });
-      });
+      const itemArray = cart.map((item) => ({
+        productId: item._id,
+        quantity: item.quantity,
+      }));
+
       const finalData = {
         addressId: addressId,
         userId: user.id,
         products: itemArray,
       };
+
+      // Step 1: Place order
       const res = await userService.placeorder(finalData);
-      if (res.status === 200) {
-        Swal.fire({
-          icon: "success",
-          title: "Order placed successfully",
-          text: "Your order will be delivered soon.",
-          timer: 1500,
-        });
-        clearCart();
-        navigate("/user/cart");
-      }
+      const { razorpayOrder, order } = res.data.data;
+      const orderId = order._id; // Save order ID for later use
+
+      // Step 2: Open Razorpay Checkout
       const options = {
-        key: process.env.REACT_APP_RAZORPAY_KEYID, // Replace with your Razorpay Key ID
-        amount: res.data.data.totalPrice.toFixed(2)*100, // Amount in subunits
-        currency: "INR",
+        key: process.env.REACT_APP_RAZORPAY_KEYID, // Razorpay Key ID
+        amount: razorpayOrder.amount, // Amount in subunits (e.g., paise)
+        currency: razorpayOrder.currency,
         name: "SHIVAM MEDICAL STORE",
         description: "Order Payment",
         image: "https://avatars.githubusercontent.com/u/69795113?v=4", // Your logo
-        order_id: res.data.orderId, // Order ID generated from backend
-        callback_url: `http://127.0.0.1:8081/v1/api/payment/:${res.data.data._id}`,
+        order_id: razorpayOrder.id, // Razorpay order ID
+        handler: async (response) => {
+          // Step 3: Verify payment
+          try {
+            const verifyRes = await axios.post(
+              `${process.env.REACT_APP_BASEURL}/v1/api/order/verifyPayment`,
+              {
+                razorpayPaymentId: response.razorpay_payment_id,
+                razorpayOrderId: response.razorpay_order_id,
+                razorpaySignature: response.razorpay_signature,
+                orderId: orderId, // Use stored MongoDB order ID
+              }
+            );
+
+            if (verifyRes.status === 200) {
+              Swal.fire({
+                icon: "success",
+                title: "Payment Successful",
+                text: "Your order has been confirmed",
+                timer: 1500,
+              });
+              clearCart();
+              navigate("/user/cart");
+            } else {
+              throw new Error("Payment verification failed");
+            }
+          } catch (error) {
+            Swal.fire({
+              icon: "error",
+              title: "Payment Failed",
+              text: "Failed to confirm payment",
+              timer: 1500,
+            });
+          }
+        },
         prefill: {
           name: user.name,
           email: user.email,
@@ -115,19 +142,29 @@ const ItemInCart = () => {
           color: "#3399cc",
         },
       };
+
       const razor = new window.Razorpay(options);
+
+      razor.on("payment.failed", (response) => {
+        Swal.fire({
+          icon: "error",
+          title: "Payment Failed",
+          text: response.error.description,
+          timer: 1500,
+        });
+      });
 
       razor.open();
     } catch (error) {
-      console.error("Error placing order:", error);
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: error?.data?.response?.message || "Failed to place order",
+        text: error?.response?.data?.message || "Failed to place order",
         timer: 1500,
       });
     }
   };
+
   return (
     <div>
       <Box sx={{ padding: 2, boxShadow: 2, borderRadius: 2 }}>

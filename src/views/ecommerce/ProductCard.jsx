@@ -1,18 +1,8 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Grid,
-  colors,
-  Box,
-} from "@mui/material";
+import { Card, CardContent, Typography, Button, Box } from "@mui/material";
 import useCartStore from "../../store/useCartStore";
- import Spinner  from "../../components/Spinner/Spinner"
 const ProductCard = ({ product }) => {
-
-   const addToCart = useCartStore((state) => state.addToCart);
+  const addToCart = useCartStore((state) => state.addToCart);
 
   return (
     <div>
@@ -21,9 +11,18 @@ const ProductCard = ({ product }) => {
         sx={{
           p: 0,
           width: "100%",
+          transition: "box-shadow 0.3s ease-in-out", // Smooth transition
+          "&:hover": {
+            boxShadow: "0px 0px 20px 0px rgba(102,130,173,1)", // Apply box shadow on hover
+          },
         }}
       >
-        <img src={product.image} alt="img" width="100%"  style={{minHeight:"200px", maxHeight:"200px"}} />
+        <img
+          src={product.image}
+          alt="img"
+          width="100%"
+          style={{ minHeight: "150px", maxHeight: "150px" }}
+        />
         <CardContent
           sx={{
             paddingLeft: "30px",

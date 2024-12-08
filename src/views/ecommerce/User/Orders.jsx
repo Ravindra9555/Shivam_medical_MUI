@@ -1,4 +1,3 @@
-
 import { LocationCityOutlined } from "@mui/icons-material";
 import {
   Box,
@@ -30,7 +29,7 @@ const Orders = () => {
         `${process.env.REACT_APP_BASEURL}/v1/api/order/getorderbyid`,
         { userId: user.id }
       );
-      setOrders(response.data.data);
+      setOrders(response.data.data.reverse());
     } catch (error) {
       Swal.fire({
         title: "Error",
@@ -40,9 +39,91 @@ const Orders = () => {
       });
     }
   };
+  const handelpay = async (id) => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BASEURL}/v1/api/order/setlePayment`,
+        { orderId: id }
+      );
+      const { razorpayOrder, order } = res.data.data;
+      const orderId = order._id; // Save order ID for later use
 
+      // Step 2: Open Razorpay Checkout
+      const options = {
+        key: process.env.REACT_APP_RAZORPAY_KEYID, // Razorpay Key ID
+        amount: razorpayOrder.amount, // Amount in subunits (e.g., paise)
+        currency: razorpayOrder.currency,
+        name: "SHIVAM MEDICAL STORE",
+        description: "Order Payment",
+        image: "https://avatars.githubusercontent.com/u/69795113?v=4", // Your logo
+        order_id: razorpayOrder.id, // Razorpay order ID
+        handler: async (response) => {
+          // Step 3: Verify payment
+          try {
+            const verifyRes = await axios.post(
+              `${process.env.REACT_APP_BASEURL}/v1/api/order/verifyPayment`,
+              {
+                razorpayPaymentId: response.razorpay_payment_id,
+                razorpayOrderId: response.razorpay_order_id,
+                razorpaySignature: response.razorpay_signature,
+                orderId: orderId, // Use stored MongoDB order ID
+              }
+            );
 
+            if (verifyRes.status === 200) {
+              Swal.fire({
+                icon: "success",
+                title: "Payment Successful",
+                text: "Your order has been confirmed",
+                timer: 1500,
+              });
+              getAllOrders();
+            } else {
+              throw new Error("Payment verification failed");
+            }
+          } catch (error) {
+            Swal.fire({
+              icon: "error",
+              title: "Payment Failed",
+              text: "Failed to confirm payment",
+              timer: 1500,
+            });
+          }
+        },
+        prefill: {
+          name: user.name,
+          email: user.email,
+          contact: user.phone,
+        },
+        notes: {
+          address: "Delivery Address",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
 
+      const razor = new window.Razorpay(options);
+
+      razor.on("payment.failed", (response) => {
+        Swal.fire({
+          icon: "error",
+          title: "Payment Failed",
+          text: response.error.description,
+          timer: 1500,
+        });
+      });
+
+      razor.open();
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error?.response?.data?.message || "Failed to place order",
+        timer: 1500,
+      });
+    }
+  };
   return (
     <Container>
       <Box sx={{ borderRadius: 2, boxShadow: 2, mt: 2, p: 3 }}>
@@ -112,20 +193,22 @@ const Orders = () => {
                       bgcolor: "grey.50",
                     }}
                   >
-                    <Typography variant="h6" sx={{ color: "red" }} >
-                      Total Price :{order.totalPrice}
+                    <Typography variant="h6" sx={{ color: "red" }}>
+                      Total Price :{order.totalPrice.toFixed(2)}
                     </Typography>
-                   
                   </Box>
                   <Box
                     sx={{
                       p: 1,
                       px: 2,
                       borderRadius: 3,
-                      bgcolor: "secondary.light",
+                      bgcolor:
+                        order.paymentStatus === "success"
+                          ? "success.light"
+                          : "warning.light",
                     }}
                   >
-                     <Typography variant="h6">
+                    <Typography variant="h6">
                       Payment Status : {order.paymentStatus}
                     </Typography>
                   </Box>
@@ -137,10 +220,20 @@ const Orders = () => {
                   //   bgcolor: "warning.light",
                   // }}
                   >
-                    <Button variant="contained" color="warning">
-                      <LocationCityOutlined />
-                      Track
-                    </Button>
+                    {order.paymentStatus == "pending" ? (
+                      <Button
+                        variant="contained"
+                        color="success"
+                        onClick={() => handelpay(order._id)}
+                      >
+                        Pay Now
+                      </Button>
+                    ) : (
+                      <Button variant="contained" color="warning">
+                        <LocationCityOutlined />
+                        Track
+                      </Button>
+                    )}
                   </Box>
                 </Box>
                 <Divider sx={{ mb: 2 }} />
@@ -167,19 +260,25 @@ const Orders = () => {
                         src={product.image || "https://via.placeholder.com/100"}
                         alt={product.name}
                         sx={{
-                          width: "100px",
-                          height: "120px",
+                          width: "50px",
+                          height: "60px",
                           borderRadius: 1,
                         }}
                       />
                       <Box ml={2} display={"flex"} alignItems={"center"}>
                         <Box>
-                          <Typography variant="h6">
+                          <Typography variant="subtitle2">
                             Product: {product.name} ({product.type})
                           </Typography>
-                          <Typography>Quantity: {product.quantity}</Typography>
-                          <Typography>MRP Rs: {product.mrp} , Discount : {product.discount}% </Typography>
-                          <Typography>Price: {product.price}</Typography>
+                          <Typography variant="body2">
+                            Quantity: {product.quantity}
+                          </Typography>
+                          <Typography variant="body2">
+                            MRP: {product.mrp} , Discount : {product.discount}%{" "}
+                          </Typography>
+                          <Typography variant="body2">
+                            Price: {product.price.toFixed(2)}
+                          </Typography>
                         </Box>
                       </Box>
                     </Grid>
