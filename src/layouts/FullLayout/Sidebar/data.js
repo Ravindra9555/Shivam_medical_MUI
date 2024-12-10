@@ -1,13 +1,10 @@
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import AddToPhotosOutlinedIcon from '@mui/icons-material/AddToPhotosOutlined';
-import AspectRatioOutlinedIcon from '@mui/icons-material/AspectRatioOutlined';
-import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
 import AlbumOutlinedIcon from '@mui/icons-material/AlbumOutlined';
-import SwitchCameraOutlinedIcon from '@mui/icons-material/SwitchCameraOutlined';
-import SwitchLeftOutlinedIcon from '@mui/icons-material/SwitchLeftOutlined';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import AutoAwesomeMosaicOutlinedIcon from '@mui/icons-material/AutoAwesomeMosaicOutlined';
-
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
+import ViewListIcon from '@mui/icons-material/ViewList';
 const Menuitems = [
   {
     title: "Dashboard",
@@ -16,22 +13,22 @@ const Menuitems = [
   },
   {
     title: "Appointments",
-    icon: AddToPhotosOutlinedIcon,
+    icon: EventAvailableIcon,
     href: "/admin/appointments",
   },
   {
     title: "Contact",
-    icon: AspectRatioOutlinedIcon,
+    icon: ContactPhoneIcon,
     href: "/admin/contact-us",
   },
   {
     title: "Customers",
-    icon: AssignmentTurnedInOutlinedIcon,
+    icon: PeopleAltIcon,
     href: "/admin/customers",
   },
   {
     title: "Doctors",
-    icon: AlbumOutlinedIcon,
+    icon: MedicalInformationIcon,
     href: "/admin/doctors",
   },
   {
@@ -46,7 +43,7 @@ const Menuitems = [
   },
   {
     title: "All Orders",
-    icon: AlbumOutlinedIcon,
+    icon: ViewListIcon,
     href: "/admin/orders",
   },
  

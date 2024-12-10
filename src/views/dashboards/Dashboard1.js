@@ -16,11 +16,11 @@ const Dashboard1 = () => {
       <Grid container spacing={0}>
         {/* ------------------------- row 1 ------------------------- */}
         <Grid item xs={12} lg={12}>
-          <SalesOverview />
+          {/* <SalesOverview /> */}
         </Grid>
         {/* ------------------------- row 2 ------------------------- */}
         <Grid item xs={12} lg={4}>
-          <DailyActivities />
+          {/* <DailyActivities /> */}
         </Grid>
         <Grid item xs={12} lg={8}>
           <ProductPerformance />

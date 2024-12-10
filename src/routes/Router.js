@@ -29,7 +29,6 @@ const Doctor = lazy(() => import("../pages/Admin/Doctor"));
 const ResetPassword = lazy(() => import("../components/userauth/ResetPassword"));
 const ContactUs = lazy(() => import("../pages/Admin/ContactUs"));
 const Customers = lazy(() => import("../pages/Admin/Customers"));
-const AdminOrders = lazy(() => import("../pages/Admin/AdminOrders.jsx"));
 const BookAppointmentByAdmin = lazy(()=> import("../pages/Admin/BookAppointment"))
 const UserRegistration = lazy(()=> import("../pages/Admin/UserRegistration"));
 
@@ -43,6 +42,9 @@ const Cart = lazy (()=> import ("../views/ecommerce/User/Cart.jsx"));
  const ShippingCart = lazy(()=> import ("../views/ecommerce/User/ProductAndShippingAddress.jsx"));
  const ProductOnWebsite= lazy(()=>import("../views/ecommerce/ProductsOnWebsite.jsx"));
  const Orders = lazy(()=> import("../views/ecommerce/User/Orders.jsx"));
+ const AdminOrders = lazy(() => import("../views/ecommerce/Admin/AdminOrders.jsx"));
+ const OrderDetails = lazy(()=> import("../views/ecommerce/Admin/OrderDetails.jsx"))
+
 const ThemeRoutes = [
   {
     path: "/",
@@ -100,6 +102,7 @@ const ThemeRoutes = [
       { path: "addproduct", element: <AddProduct /> },
       { path: "allproducts", element: <AllProducts /> },
       { path: "editproduct/:id", element: <EditProduct /> },
+      { path: "orderdetails/:id", element: <OrderDetails /> },
       { path: "*", element: <Error /> },
     ],
   },

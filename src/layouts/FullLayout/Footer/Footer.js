@@ -9,7 +9,7 @@ import {
 const Footer = () => {
     return ( 
         <Box sx={{p:3, textAlign:'center'}}>
-            <Typography>© {dayjs().format("YYYY")} All rights reserved by <Link href="https://shivammedical.vercel.app">Shivam Medical  </Link> </Typography>
+            <Typography>© {dayjs().format("YYYY")} All rights reserved by <Link href="https://shivampharmacy.vercel.app">Shivam Medical  </Link> </Typography>
         </Box>
      );
 }

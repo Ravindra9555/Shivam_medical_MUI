@@ -12,10 +12,12 @@ import {
   TablePagination,
   Typography,
   Stack,
-  Pagination,
+  Chip,
 } from "@mui/material";
 import axios from "axios";
-
+import Pagination from '@mui/material/Pagination';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { useNavigate, useNavigation } from "react-router-dom";
 const OrderTable = () => {
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
@@ -24,7 +26,7 @@ const OrderTable = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [totalOrders, setTotalOrders] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const[pageSize, setPageSize] = useState(0);
+  const [pageSize, setPageSize] = useState(0);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -35,14 +37,14 @@ const OrderTable = () => {
             params: { pageNo: page },
           }
         );
-        console.log("Orders Data:", response.data.data.orders); // Debugging
+        // console.log("Orders Data:", response.data.data.orders); // Debugging
         setOrders(response.data.data.orders);
         setFilteredOrders(response.data.data.orders);
         setTotalOrders(response.data.data.totalCount);
         setPageSize(response.data.data.pageSize);
         setCurrentPage(response.data.data.pageNo); // Setting initial page to 0
 
-         // Setting initial page size
+        // Setting initial page size
       } catch (error) {
         console.error("Failed to fetch orders", error);
       }
@@ -72,7 +74,11 @@ const OrderTable = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
+   const navigate = useNavigate();
+ const showinewTab =(id)=>{
+     navigate(`/admin/orderdetails/${id}`)
+  
+ };
   return (
     <Box sx={{ p: 2 }}>
       <Typography variant="h5" gutterBottom>
@@ -81,6 +87,7 @@ const OrderTable = () => {
       <TextField
         variant="outlined"
         fullWidth
+         size="small"
         placeholder="Search by Order ID, Name, or Email"
         value={searchQuery}
         onChange={handleSearch}
@@ -109,8 +116,9 @@ const OrderTable = () => {
                 <strong>Payment Status</strong>
               </TableCell>
               <TableCell>
-                <strong>Created At</strong>
+                <strong>Order Date </strong>
               </TableCell>
+         
             </TableRow>
           </TableHead>
           <TableBody>
@@ -119,12 +127,12 @@ const OrderTable = () => {
                 // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((order) => (
                   <TableRow key={order._id}>
-                    <TableCell>{order._id}</TableCell>
+                    <TableCell sx={{color:"blue", cursor:"pointer"}} onClick={()=>showinewTab(order._id)}>{order._id} <OpenInNewIcon sx={{ fontSize:"14px", color:"blue"}}/></TableCell>
                     <TableCell>{order.address?.fullName || "N/A"}</TableCell>
                     <TableCell>{order.address?.email || "N/A"}</TableCell>
                     <TableCell>₹{order.totalPrice.toFixed(2)}</TableCell>
-                    <TableCell>{order.status}</TableCell>
-                    <TableCell>{order.paymentStatus}</TableCell>
+                    <TableCell>{order.status=="pending"? <Chip label={order.status} color="warning"  />:<Chip label={order.status} color="success" />} </TableCell>
+                    <TableCell> {order.paymentStatus=="pending"? <Chip label={order.paymentStatus} color="warning"  />:<Chip label={order.paymentStatus} color="success" />}</TableCell>
                     <TableCell>
                       {new Date(order.createdAt).toLocaleDateString()}
                     </TableCell>
@@ -140,11 +148,18 @@ const OrderTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Stack spacing={2}>
-     
-      <Pagination count={pageSize} page={currentPage} onChange={handleChangePage} color="secondary" variant="outlined" />
-    </Stack>
+      <Box sx={{p:1 , borderRadius:2 , boxShadow:2, mt:2, display:"flex", justifyContent:"center", bgcolor:"grey.100"}}>
 
+      {/* <Stack spacing={2} > */}
+        <Pagination
+          count={pageSize}
+          page={currentPage}
+          onChange={handleChangePage}
+          color="primary"
+      
+        />
+      {/* </Stack> */}
+      </Box>
     </Box>
   );
 };

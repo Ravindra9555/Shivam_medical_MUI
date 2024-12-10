@@ -3,7 +3,6 @@ import { Card, CardContent, Typography, Box } from "@mui/material";
 import Chart from 'react-apexcharts';
 
 
-
 const SalesOverview = ({data}) => {
    console.log({data})
   const optionssalesoverview = {
