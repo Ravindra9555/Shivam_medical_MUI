@@ -4,8 +4,7 @@ const AdminAppomtmentGraph = () => {
   return (
     <div>
       <>
-       Appointmnet chart  
-       
+       Appointmnet chart
        </>
     </div>
   )

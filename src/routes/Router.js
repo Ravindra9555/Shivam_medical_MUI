@@ -9,6 +9,7 @@ const UserLayout = lazy(() => import("../layouts/UserLayout/FullLayout.js"));
 /*****Pages******/
 const Dashboard1 = lazy(() => import("../views/dashboards/Dashboard1.js"));
 
+const AdminDashboard = lazy(() => import("../views/AdminDashbaord /Dashboard.jsx"));
 
 
 
@@ -89,7 +90,7 @@ const ThemeRoutes = [
     element: <AdminLayout />,
     children: [
       { path: "", element: <Navigate to="dashboard" /> },
-      { path: "dashboard", element: <Dashboard1 /> },
+      { path: "dashboard", element: <AdminDashboard /> },
       { path: "appointments", element: <Appointments /> },
       { path: "doctors", element: <Doctor /> },
       { path: "admins", element: <AllAdmin /> },
