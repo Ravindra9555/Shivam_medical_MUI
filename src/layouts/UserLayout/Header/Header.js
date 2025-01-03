@@ -171,7 +171,7 @@ const Header = (props) => {
           <ShoppingBagOutlined width="20" height="20" />
           </Badge>
         </IconButton>
-        <IconButton
+        {/* <IconButton
           aria-label="menu"
           color="inherit"
           aria-controls="notification-menu"
@@ -202,7 +202,7 @@ const Header = (props) => {
           <MenuItem onClick={handleClose}>Action</MenuItem>
           <MenuItem onClick={handleClose}>Action Else</MenuItem>
           <MenuItem onClick={handleClose}>Another Action</MenuItem>
-        </Menu>
+        </Menu> */}
         {/* ------------------------------------------- */}
         {/* End Notifications Dropdown */}
         {/* ------------------------------------------- */}

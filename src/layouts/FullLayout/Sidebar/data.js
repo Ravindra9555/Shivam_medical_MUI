@@ -17,11 +17,6 @@ const Menuitems = [
     href: "/admin/appointments",
   },
   {
-    title: "Contact",
-    icon: ContactPhoneIcon,
-    href: "/admin/contact-us",
-  },
-  {
     title: "Customers",
     icon: PeopleAltIcon,
     href: "/admin/customers",
@@ -46,7 +41,11 @@ const Menuitems = [
     icon: ViewListIcon,
     href: "/admin/orders",
   },
- 
+  {
+    title: "Contact",
+    icon: ContactPhoneIcon,
+    href: "/admin/contact-us",
+  }
 ];
 
 export default Menuitems;

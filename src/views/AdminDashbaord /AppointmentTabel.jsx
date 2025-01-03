@@ -1,19 +1,17 @@
 import React from 'react'
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box ,Typography} from '@mui/material';
+import { cyan, lightBlue } from '@mui/material/colors';
+import  dayjs  from 'dayjs';
 
-const AppointmentTabel = () => {
-  const rows = [
-    { id: 1, doctor: 'Dr. John Smith', patient: 'John Doe', date: '2022-01-01', time: '10:00 AM', status: 'pending' },
-    { id: 2, doctor: 'Dr. Jane Doe', patient: 'Jane Smith', date: '2022-01-02', time: '11:00 AM', status: 'completed' },
-    { id: 3, doctor: 'Dr. Bob Johnson', patient: 'Bob Williams', date: '2022-01-03', time: '12:00 PM', status: 'cancelled' },
-    { id: 4, doctor: 'Dr. Alice Brown', patient: 'Alice Johnson', date: '2022-01-04', time: '1:00 PM', status: 'pending' },
-    { id: 5, doctor: 'Dr. David Lee', patient: 'David Kim', date: '2022-01-05', time: '2:00 PM', status: 'completed' },
-  ];
-
+const AppointmentTabel = ({data}) => {
   return (
-    <Box sx={{ overflowX: 'auto' }}>
+    <Box sx={{ overflowX: 'auto',
+     }} >
+      <Typography variant="h5" p={1} gutterBottom>
+        Upcoming Appointments
+      </Typography>
       <TableContainer component={Paper} sx={{ minWidth: 650 }}>
-        <Table aria-label="simple table">
+        <Table aria-label="simple table"  bgcolor={cyan[50]} >
           <TableHead>
             <TableRow>
               <TableCell>Doctor</TableCell>
@@ -24,16 +22,16 @@ const AppointmentTabel = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {data.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.doctor}
+                  {row.doctorId?.name}
                 </TableCell>
-                <TableCell>{row.patient}</TableCell>
-                <TableCell>{row.date}</TableCell>
+                <TableCell>{row.patientId?.name}</TableCell>
+                <TableCell>{dayjs(row.date).format('DD/MM/YYYY')}</TableCell>
                 <TableCell>{row.time}</TableCell>
                 <TableCell>{row.status}</TableCell>
               </TableRow>

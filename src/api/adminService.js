@@ -35,16 +35,17 @@ const adminService = {
         data,
       },
     }),
-    getProductbyId: (id) =>
-      adminApi.get("/v1/api/product/getproductDetailsById", {
-        params: { productId: id },
-      }),
-      updateProduct: (product) =>adminApi.post("/v1/api/product/updateproduct", product,{
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-
+  getProductbyId: (id) =>
+    adminApi.get("/v1/api/product/getproductDetailsById", {
+      params: { productId: id },
+    }),
+  updateProduct: (product) =>
+    adminApi.post("/v1/api/product/updateproduct", product, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }),
+    adminDashbordData: () => adminApi.get("/v1/api/dashbaord/admindashboard"),
   // Add more admin-specific APIs here
 };
 
