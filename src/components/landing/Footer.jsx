@@ -79,7 +79,7 @@ const Footer = () => {
               <IconButton component="a" href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
                 <BsTwitter />
               </IconButton>
-              <IconButton component="a" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+              <IconButton component="a" href="https://www.instagram.com/ravindra2.dev" target="_blank" rel="noopener noreferrer">
                 <BsInstagram />
               </IconButton>
               <IconButton component="a" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
